@@ -2,7 +2,9 @@
 ###########
 # INSTALL #
 ###########
-sudo apt-get install python3-regex
+sudo apt-get install poppler-utils
+
+pip3 install regex --ignore-installed
 pip3 install tensorflow --ignore-installed
 pip3 install numpy --ignore-installed
 pip3 install tqdm --ignore-installed

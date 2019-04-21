@@ -59,8 +59,8 @@ if not os.path.exists("PDF/"):
 
 i = 1
 for link in link_list:
-
-    #print (link)
+    
+    print ("Downloading " + link)
     
     request = urllib.request.Request(url=link, headers=hdr)
     response = urllib.request.urlopen(request)
