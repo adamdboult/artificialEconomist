@@ -1,6 +1,8 @@
 ######################
 # CONVERT PDF TO TXT #
 ######################
+mkdir -p ./TXT/
+
 for filename in ./PDF/*.pdf; do
     name=$(basename "$filename")
     nameNoExt=$(basename "$filename" ".pdf")
