@@ -27,6 +27,15 @@ preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=polic
            "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
            "https://www.fca.org.uk/publications/search-results?np_category=research-research"
            ]
+
+preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-research"
+           ]
+
+
 URLs = []
 
 for preURL in preURLs:
