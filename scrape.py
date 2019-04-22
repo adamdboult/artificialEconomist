@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 ##########
 # IMPORT #
 ##########
@@ -16,16 +17,25 @@ import urllib.request
 ######################
 # GET URLS TO SCRAPE #
 ######################
-preURL = "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-policy%20statements"
-
+preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-policy%20statements",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-feedback%20statements",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-finalised%20guidance",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-multi-firm%20reviews",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
+           "https://www.fca.org.uk/publications/search-results?np_category=research-research"
+           ]
 URLs = []
 
-for page in range(1, 150):
-    start = ((page - 1) * 10) + 1
-    newURL = preURL + "&start=" + str(start)
-    URLs.append(newURL)
-
-print("\n".join(URLs))
+for preURL in preURLs:
+    for page in range(1, 50):
+        start = ((page - 1) * 10) + 1
+        newURL = preURL + "&start=" + str(start)
+        URLs.append(newURL)
+        
+#print("\n".join(URLs))
 #print (URLs)
 
 ########################
