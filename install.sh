@@ -19,6 +19,7 @@ echo "Cloning..."
 git clone 'https://github.com/nshepperd/gpt-2.git'
 
 sudo pip3 install -r ./gpt-2/requirements.txt
+sudo pip3 install tensorflow-gpu
 
 ##################
 # DOWNLOAD MODEL #
