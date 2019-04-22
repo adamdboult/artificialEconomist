@@ -21,6 +21,10 @@ preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=polic
            "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-feedback%20statements",
            "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
            "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-finalised%20guidance",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-calls%20for%20input",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-consultation%20papers",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-guidance%20consultations",
+           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-newsletters",
            "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
            "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
            "https://www.fca.org.uk/publications/search-results?np_category=research-multi-firm%20reviews",
@@ -28,12 +32,12 @@ preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=polic
            "https://www.fca.org.uk/publications/search-results?np_category=research-research"
            ]
 
-preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
-           "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
-           "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
-           "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
-           "https://www.fca.org.uk/publications/search-results?np_category=research-research"
-           ]
+#preURLs = ["https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
+#           "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
+#           "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
+#           "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
+#           "https://www.fca.org.uk/publications/search-results?np_category=research-research"
+#           ]
 
 
 URLs = []
