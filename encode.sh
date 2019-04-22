@@ -1,2 +1,3 @@
 cd gpt-2/
-PYTHONPATH=src ./encode.py ../merged_file_clean.txt ../merged_file_clean.txt.npz
+#sudo PYTHONPATH=src python ./encode.py ../merged_file_clean_2.txt ../merged_file_clean.txt.npz
+sudo PYTHONPATH=src python3 ./encode.py ../merged_file_clean_2.txt ../merged_file_clean.txt.npz
