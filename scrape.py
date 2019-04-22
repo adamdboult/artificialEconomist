@@ -62,7 +62,8 @@ for URL in URLs:
     soup = bs(response.text)
     for link in soup.find_all('a'): # Finds all links
         if ".pdf" in str(link): # If the link ends in .pdf
-            link_list.append(link.get('href'))
+            if not link.get('href') in link_list:
+                link_list.append(link.get('href'))
 
 print("\n".join(link_list))
 #print(link_list)
