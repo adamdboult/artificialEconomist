@@ -1,0 +1,64 @@
+extends templates/loginHeader.jade
+
+block content
+	.container
+		br
+		.jumbotron
+			h1.bs-docs-featurette-title This Economist Does Not Exist
+		h2 
+		p 
+		//form(action="/submit_question" method="post")
+		//	p What is your question?
+		//	input(type="text" name="question")
+		//	input(type="submit" value="Submit")
+		//p What is your question?
+		div.form-group
+			label(for="question") What is your question?
+			textarea.form-control(id="question" rows=3)
+		//input(type="text" name="question" id="question")
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		//button(type="button" onclick="loadDoc()") Ask question
+		button.btn.btn-primary(type="button") Ask question
+		br
+		br
+		div.panel.panel-default
+			div.panel-heading Response
+			div.panel-body
+				p(id="questionResponse")
+		p(id="demo")
+		script
+			| $(document).ready(function(){
+			| 	$("button").click(function(){
+			|   		var question = document.getElementById("question").value;
+			| 		console.log(question);
+			| 		$.ajax({type: "POST", url: "submit_question", data: question, success: function(result){
+			| 			console.log("Got response!");
+			| 			console.log(result);
+			| 			newResult = result.replace(/\n/g, '<br/>')
+			| 			$("#questionResponse").html(newResult);
+			| 		}});
+			| 		$("#questionResponse").html("Please wait...");
+			| 	});
+			| });
+		//	| document.getElementById("demo").innerHTML = "Hello JavaScript!";
+		//	| function loadDoc() {
+		//	|   console.log("hi")
+		//	|   var params={};
+		//	|   var question = document.getElementById("question").value;
+		//	|   params.question=question;
+		//	|   console.log("sending question" + question)
+		//	|   var xhttp = new XMLHttpRequest();
+		//	|   xhttp.onreadystatechange = function() {
+		//	|     if (this.readyState == 4 && this.status == 200) {
+		//	|      document.getElementById("demo").innerHTML = this.responseText;
+		//	|     }
+		//	|   };
+		//	|   xhttp.open("POST", "submit_question", true);
+		//	|   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		//	|   xhttp.send(question);
+		//	|   console.log(question);
+		//	| }
+

@@ -4,8 +4,6 @@
 ###########
 sudo apt-get install poppler-utils
 
-
-
 #pip3 install regex --ignore-installed
 #pip3 install tensorflow --ignore-installed
 #pip3 install tensorflow-gpu --ignore-installed

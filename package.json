@@ -1,0 +1,39 @@
+{
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "express": "^4.16.4",
+    "forcedomain": "^1.0.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-concat": "*",
+    "gulp-clean": "*",
+    "del": "*",
+    "gulp-jade": "*",
+    "gulp-jshint": "^2.1.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-shell": "^0.7.0",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "jade": "*",
+    "jshint": "^2.10.2",
+    "q": "^2.0.3",
+    "rimraf": "^2.6.3",
+    "serve-favicon": "^2.5.0",
+    "sitemap": "^2.2.0",
+    "winston": "^3.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://git@github.com/adamdboult/nodeHomePage.git"
+  },
+  "description": "Adam Boult's homepage",
+  "scripts": {
+    "gulp_debug": "gulp debug",
+    "bower_install": "bower install",
+    "bower_update": "bower update"
+  },
+  "license": "SEE LICENSE IN LICENSE.md"
+}
+

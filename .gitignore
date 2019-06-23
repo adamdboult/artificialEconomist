@@ -5,3 +5,14 @@ merged_*
 ~*
 #*
 .*
+bower_components/
+data/
+private/
+node_modules/
+public/
+*.log
+*.pyc
+*__pycache__/
+rawData/
+artillery_*
+
