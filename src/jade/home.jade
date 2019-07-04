@@ -4,9 +4,9 @@ block content
 	.container
 		br
 		.jumbotron
-			h1.bs-docs-featurette-title This Economist Does Not Exist
-		h2 
-		p 
+			h1.bs-docs-featurette-title This Economist Does Not Exist 
+		p An artificial economist trained on publicly available economics.
+		p For realistic results, please ask the same question \(n\) times to get \(n\) answers.
 		//form(action="/submit_question" method="post")
 		//	p What is your question?
 		//	input(type="text" name="question")
@@ -21,7 +21,8 @@ block content
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		//button(type="button" onclick="loadDoc()") Ask question
-		button.btn.btn-primary(type="button") Ask question
+		button.btn.btn-primary(id="submitButton" type="button") Ask question	
+		button.btn.btn-default(id="waitButton" type="button") Please wait
 		br
 		br
 		div.panel.panel-default
@@ -31,14 +32,19 @@ block content
 		p(id="demo")
 		script
 			| $(document).ready(function(){
-			| 	$("button").click(function(){
+			| 	$("#waitButton").hide()
+			| 	$("#submitButton").click(function(){
 			|   		var question = document.getElementById("question").value;
 			| 		console.log(question);
+			| 		$("#submitButton").hide();
+			| 		$("#waitButton").show();
 			| 		$.ajax({type: "POST", url: "submit_question", data: question, success: function(result){
 			| 			console.log("Got response!");
 			| 			console.log(result);
 			| 			newResult = result.replace(/\n/g, '<br/>')
 			| 			$("#questionResponse").html(newResult);
+			| 			$("#submitButton").show();
+			| 			$("#waitButton").hide();
 			| 		}});
 			| 		$("#questionResponse").html("Please wait...");
 			| 	});
