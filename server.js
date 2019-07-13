@@ -25,6 +25,7 @@ app.use(forceDomain({
 }));
 
 //forward http to https
+/*
 function requireHTTPS(req, res, next) {
     if (!req.secure) {
         //FYI this should work for local development as well
@@ -34,7 +35,7 @@ function requireHTTPS(req, res, next) {
 }
 
 app.use(requireHTTPS);
-
+*/
 app.set('trust proxy', 1);
 
 const bodyParser = require('body-parser');
