@@ -85,10 +85,10 @@ var HTTPport = process.env.PORT || HTTPportnum;
 var HTTPSportnum = configObj.ports.https;
 var privateKey = fs.readFileSync(configObj.keys.privateKey);
 var certificate = fs.readFileSync(configObj.keys.certificate);
-var certAuth = fs.readFileSync(configObj.keys.certAuth);
+//var certAuth = fs.readFileSync(configObj.keys.certAuth);
 var options = {key: privateKey,
 	       cert: certificate,
-	       ca: certAuth
+//	       ca: certAuth
 	      };
 
 var httpsPort = process.env.PORT || HTTPSportnum;
