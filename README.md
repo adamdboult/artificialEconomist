@@ -37,6 +37,9 @@ Train the model
 Query the model.
 ./query.sh
 
+# Copy the interactive_conditional_samples_AB
+ Note that this updates the default top_k and top_p from 0 and 0 respectively.
+
 # Getting the web server to work
 
 Install APT dependencies:

@@ -3,15 +3,12 @@
 import sys
 import os
 import subprocess
-#print("This is python talking")
 #sys.stdout.flush()
 
 
 question = sys.argv[1]
 #print(question)
 os.chdir("./gpt-2")
-#os.system("./src/generate_unconditional_samples.py --nsamples 1")
-#os.system("./src/interactive_conditional_samples_AB.py --raw_text 'Example'")
 
 result = subprocess.run(["./src/interactive_conditional_samples_AB.py", "--raw_text", question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #print("Output:")
