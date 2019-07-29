@@ -80,7 +80,7 @@ def interact_model(
         ckpt = tf.train.latest_checkpoint(os.path.join('models', model_name))
         saver.restore(sess, ckpt)
 
-        print(time.time()-start)
+        #print(time.time()-start)
 
         context_tokens = enc.encode(raw_text)
         generated = 0
@@ -92,7 +92,7 @@ def interact_model(
                 generated += 1
                 text = enc.decode(out[i])
                 print(text)
-                print (time.time()-start)
+                #print (time.time()-start)
 
 if __name__ == '__main__':
     fire.Fire(interact_model)
