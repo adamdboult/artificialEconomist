@@ -54,6 +54,9 @@ npx bower install
 Prepare public files with gulp:
 npx gulp
 
-Run the webserver:
-NODE_ENV=production npx forever start ./server.js
+# SystemD
+copy the below to /lib/systemd/system/
+node-artificial-economist.service
 
+And then run
+sudo systemctl daemon-reload

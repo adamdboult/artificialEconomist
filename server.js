@@ -99,6 +99,6 @@ httpServer.listen(HTTPport);
 
 logger.debug("App listening on port " + HTTPport);
 
-var httpsServer=https.createServer(options,app);
-httpsServer.listen(httpsPort);
-logger.debug("HTTPS on port "+httpsPort);
+//var httpsServer=https.createServer(options,app);
+//httpsServer.listen(httpsPort);
+//logger.debug("HTTPS on port "+httpsPort);
