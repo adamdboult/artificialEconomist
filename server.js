@@ -18,12 +18,13 @@ var configObj = JSON.parse(fs.readFileSync('private/config.json' , 'utf8'));
 
 //START EXPRESS
 var app = express();
+/*
 app.use(forceDomain({
     hostname: configObj.siteName,
     //  port: 443,
     protocol: 'https'
 }));
-
+*/
 //forward http to https
 /*
 function requireHTTPS(req, res, next) {
@@ -82,6 +83,7 @@ var HTTPport = process.env.PORT || HTTPportnum;
 //app.listen(HTTPport);
 
 //HTTPS setup
+/*
 var HTTPSportnum = configObj.ports.https;
 var privateKey = fs.readFileSync(configObj.keys.privateKey);
 var certificate = fs.readFileSync(configObj.keys.certificate);
@@ -92,7 +94,7 @@ var options = {key: privateKey,
 	      };
 
 var httpsPort = process.env.PORT || HTTPSportnum;
-
+*/
 // LISTEN
 var httpServer=http.createServer(app);
 httpServer.listen(HTTPport);
