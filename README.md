@@ -60,3 +60,5 @@ node-artificial-economist.service
 
 And then run
 sudo systemctl daemon-reload
+sudo systemctl start node-artificial-economist.service
+

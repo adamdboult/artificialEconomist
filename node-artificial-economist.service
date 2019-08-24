@@ -4,12 +4,12 @@ Documentation=https://www.artificialeconomist.com
 After=network.target
 
 [Service]
-Type=simple
+Type=notify
 User=adam
 ExecStart=/usr/bin/node /home/adam/Projects/GPT-2-FCA/server.js
-Restart=on-failure
+Restart=always
+WatchogSec=604800
 
 [Install]
 WantedBy=multi-user.target
-
 
