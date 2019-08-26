@@ -94,7 +94,7 @@ node server.js
 
 Copy the service file.
 ```bash
-sudo cp node-artificialeconomist.service /lib/systemd/system
+sudo cp ./node-artificialeconomist.service /lib/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl start node-artificialeconomist.service
 ```
@@ -115,7 +115,7 @@ sudo a2enmod rewrite
 sudo a2enmod ssl
 sudo a2enmod proxy
 sudo a2enmod proxy_http
-sudo cp node-artificialeconomist.conf /etc/apache2/sites-available
+sudo cp ./node-artificialeconomist.conf /etc/apache2/sites-available
 sudo a2ensite node-artificialeconomist.conf
 sudo systemctl reload apache2
 ```
