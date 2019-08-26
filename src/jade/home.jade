@@ -27,7 +27,8 @@ block content
 		br
 		br
 		div.panel.panel-default
-			div.panel-heading Response
+			div.panel-heading
+				p(id="questionResponseHeader") Response
 			div.panel-body
 				p(id="questionResponse")
 		p(id="demo")
@@ -39,6 +40,7 @@ block content
 			| 		console.log(question);
 			| 		$("#submitButton").hide();
 			| 		$("#waitButton").show();
+			| 		$("#questionResponseHeader").html(question)
 			| 		$.ajax({type: "POST", url: "submit_question", data: question, success: function(result){
 			| 			console.log("Got response!");
 			| 			console.log(result);
