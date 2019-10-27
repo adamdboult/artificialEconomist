@@ -1,34 +1,41 @@
 # Introduction
 This extends the GPT-2 model by training it on economics data.
 
-# Cloning GPT-2
-This will clone the GPT-2 model.
-```bash
-./install.sh
+# Make Jetson Nano headless
+https://devtalk.nvidia.com/default/topic/1049266/jetson-nano/headless-os/
+1. Make sure you have a backup
+2. Make sure you have ssh enabled (on the card image it is, but make sure...)
+3. sudo vi /boot/extlinux/extlinux.conf
+4. at the end of the APPEND line, after the rootwait, add 3. The line now looks like:
+APPEND ${cbootargs} rootfstype=ext4 root=/dev/mmcblk0p1 rw rootwait 3
+
+# Dependencies
+```
+sudo apt-get install poppler-utils
 ```
 
 
-
-Install the requirements
-```bash
-sudo pip3 install -r ./src/requirements.txt
+https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
 ```
-
-Download the model
-```bash
-python3 ./src/download_model.py 117M
+sudo pip3 install tensorflow-gpu
 ```
-
-Follow the instructions around tensor flow from the DEVELOPERS.md file.
-
-Install tensorflow 1.12 (with GPU support, if you have a GPU and want everything to run faster)
+Alternatively, if no GPU,
 ```bash
 pip3 install tensorflow==1.12.0
 ```
-or
-```bash
-pip3 install tensorflow-gpu==1.12.0
+
+# Cloning GPT-2
+This will clone the GPT-2 model.
+
+
 ```
+git clone 'https://github.com/nshepperd/gpt-2.git'
+sudo pip3 install -r ./gpt-2/requirements.txt
+./download_model.py 117M
+```
+
+
+Follow the instructions around tensor flow from the DEVELOPERS.md file.
 
 # Preparing training data
 Scrape PDFs.

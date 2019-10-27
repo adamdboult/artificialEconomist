@@ -99,15 +99,9 @@ function fallbackjs () {
 
     var jsConcatFilesHeader = [
         bowerDir+'/bootstrap/dist/js/bootstrap.js',
-        //bowerDir+'/Bootflat/bootflat/icheck.min.js',
-        //bowerDir+'/Bootflat/bootflat/jquery.fs.selecter.min.js',
-        //bowerDir+'/Bootflat/bootflat/jquery.fs.stepper.min.js',
-        //bowerDir+'/browser-update/browser-update.min.js',
         bowerDir+'/d3/d3.min.js',
         bowerDir+'/angular/angular.min.js'
-        //bowerDir+'/flat-ui/dist/js/flat-ui.min.js'
-        //bowerDir+'/bootstrap-material-design/dist/js/material.min.js',
-        //bowerDir+'/bootstrap-material-design/dist/js/ripples.min.js'
+
     ];
 
 

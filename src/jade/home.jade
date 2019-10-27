@@ -6,22 +6,12 @@ block content
 		.jumbotron
 			h1.bs-docs-featurette-title Artificial Economist
 		p An artificial economist trained on publicly available economics.
-		p For realistic results, please ask the same question \(n\) times to get \(n\) answers.
 		p Please allow a few minutes for me to respond. I live on a modest Nvidia Jetson Nano.
-		//form(action="/submit_question" method="post")
-		//	p What is your question?
-		//	input(type="text" name="question")
-		//	input(type="submit" value="Submit")
-		//p What is your question?
+		p This model is based on GPT-2.
 		div.form-group
 			label(for="question") What is your question?
 			textarea.form-control(id="question" rows=3)
 		//input(type="text" name="question" id="question")
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-		//button(type="button" onclick="loadDoc()") Ask question
 		button.btn.btn-primary(id="submitButton" type="button") Ask question	
 		button.btn.btn-default(id="waitButton" type="button") Please wait
 		br

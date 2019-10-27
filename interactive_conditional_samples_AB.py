@@ -11,15 +11,15 @@ import model, sample, encoder
 import time
 
 def interact_model(
-    model_name='myModel',
-    seed=None,
-    nsamples=1,
-    batch_size=1,
-    length=None,
-    temperature=1,
-    top_k=40,
-    top_p=0.9,
-    raw_text=""
+    model_name  = 'myModel',
+    seed        = None,
+    nsamples    = 1,
+    batch_size  = 1,
+    length      = None,
+    temperature = 1,
+    top_k       = 40,
+    top_p       = 0.9,
+    raw_text    = ""
 ):
     """
     Interactively run the model

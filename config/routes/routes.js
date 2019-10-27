@@ -31,7 +31,7 @@ module.exports=function(app,logger){
         console.log("Got question: " + question);
         var spawn = require("child_process").spawn;
         console.log("Spawning...")
-        var pythonProcess = spawn('python3',["./test2.py", question]);
+        var pythonProcess = spawn('python3',["./runQuery.py", question]);
         pythonProcess.stdout.setEncoding('utf-8');
         console.log("Waiting...")
         pythonProcess.stdout.on('data', function(data) {
