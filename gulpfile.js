@@ -33,6 +33,7 @@ var del = require('del');
 /* DIRECTORIES */
 /////////////////
 var bowerDir = __dirname+'/bower_components';
+
 ////////////////
 /* FONT FILES */
 ////////////////
@@ -43,6 +44,9 @@ var bowerDir = __dirname+'/bower_components';
         bowerDir+'/bootstrap-material-design/dist/fonts/**/*'
     ];
 
+///////////////////
+/* MATHJAX FILES */
+///////////////////
     var mathjaxprefix=bowerDir+'/MathJax';
     var mathjaxFolder=[mathjaxprefix+'/MathJax.js',
 		   mathjaxprefix+'/config/**/*',
@@ -80,14 +84,14 @@ function mathjax (){
 
 }
 
-function datepicker () {
-
-    var datepickerFolder=[bowerDir+'/bootstrap-datepicker/js/**/*'];
-
-    gulp.src(datepickerFolder,{base:bowerDir+'/bootstrap-datepicker/js'})
-	.pipe(gulp.dest(__dirname+'/public/js/datepicker/'));
-
-}
+//function datepicker () {
+//
+//    var datepickerFolder=[bowerDir+'/bootstrap-datepicker/js/**/*'];
+//
+//    gulp.src(datepickerFolder,{base:bowerDir+'/bootstrap-datepicker/js'})
+//	.pipe(gulp.dest(__dirname+'/public/js/datepicker/'));
+//
+//}
 
 function fallbackjs () {
 

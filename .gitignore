@@ -1,7 +1,7 @@
 gpt-2/
-PDF/
-TXT/
-merged_*
+getText/PDF/
+getText/TXT/
+getText/merged_*
 ~*
 #*
 .*

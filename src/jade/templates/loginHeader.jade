@@ -9,15 +9,17 @@ html
 		title Artificial Economist
 
 		// JQUERY.JS
-		link(src="https://code.jquery.com/jquery-3.4.1.slim.min.js")
-		document.write('<script src="/js/jquery.min.js"><\/script>')
-		<script src="/js/jquery.min.js"><\/script>
+		script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+		//document.write('<script src="/js/jquery.min.js"></script>')
+		//<script src="/js/jquery.min.js"><\/script>
 		//script(window.jQuery | document.write('<script src="/js/jquery.min.js"><\/script>'))
 
 		// MATHJAX.JS
 		//script(type="text/x-mathjax-config" MathJax.Hub.Config({tex2jax: {}}))
-		script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/config/TeX-AMS-MML_HTMLorMML.js")
-		script(type="text/javascript" src="/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+		//script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/config/TeX-AMS-MML_HTMLorMML.js")
+		//<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+		script#MathJax-script(async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js")
+		//script(type="text/javascript" src="/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
 
 		//BOOTSTRAP.JS
 		script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")				
