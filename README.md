@@ -42,6 +42,8 @@ Scrape PDFs.
 ```bash
 ./scrape.py
 ```
+Also get PDFs from:
+https://open.umn.edu/opentextbooks/subjects/economics
 
 Convert the PDFs to a single text file.
 ```bash
@@ -127,14 +129,4 @@ sudo a2ensite node-artificialeconomist.conf
 sudo systemctl reload apache2
 ```
 
-# Django server
-sudo pip3 install django
-sudo django-admin startproject mysite
-python manage.py runserver 8010
-
-
-
-python3 manage.py makemigrations
-python3 manage.py migrate
-python3 manage.py runserver
 
