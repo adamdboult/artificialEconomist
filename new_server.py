@@ -67,7 +67,13 @@ def interact_model(
     elif length > hparams.n_ctx:
         raise ValueError("Can't get samples longer than window size: %s" % hparams.n_ctx)
     print ("!!!3")
-    with tf.Session(graph=tf.Graph()) as sess:
+
+    config = tf.ConfigProto(
+        device_count = {'GPU': 0}
+    )
+    #sess = tf.Session(config=config)
+    #with tf.Session(graph=tf.Graph()) as sess:
+    with tf.Session(graph=tf.Graph(), config=config) as sess:
         print ("!!!4")
         context = tf.placeholder(tf.int32, [batch_size, None])
         np.random.seed(seed)
