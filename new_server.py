@@ -17,6 +17,17 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 import model, sample, encoder
 
+
+#file_path = os.path.dirname(os.path.abspath(__file__))
+#dest_path = os.path.join(file_path, "..")
+#print("4")
+#print(dest_path)
+#print("5")
+#os.chdir(dest_path)
+#os.chdir("./gpt-2")
+
+
+
 def interact_model(
     model_name='117M',
     #model_name='myModel',

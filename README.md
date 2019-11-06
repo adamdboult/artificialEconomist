@@ -104,8 +104,10 @@ node server.js
 Copy the service file.
 ```bash
 sudo cp ./node-artificialeconomist.service /lib/systemd/system
+sudo cp ./python-artificialeconomist.service /lib/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl start node-artificialeconomist.service
+sudo systemctl start python-artificialeconomist.service
 ```
 
 # Settings for proxy server
