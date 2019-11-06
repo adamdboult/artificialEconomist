@@ -162,22 +162,32 @@ def interact_model(
                 context_tokens = enc.encode(raw_text)
                 generated = 0
                 print ("!!!7")
-                for _ in range(nsamples // batch_size):
-                    print ("!!!8")
-                    out = sess.run(output, feed_dict={
-                        context: [context_tokens for _ in range(batch_size)]
-                    })[:, len(context_tokens):]
-                    print ("!!!9")
-                    for i in range(batch_size):
-                        generated += 1
-                        text = enc.decode(out[i])
-                        #print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
+                #for _ in range(nsamples // batch_size):
+                #    print ("!!!8")
+                #    out = sess.run(output, feed_dict={
+                #        context: [context_tokens for _ in range(batch_size)]
+                #    })[:, len(context_tokens):]
+                #    print ("!!!9")
+                #    for i in range(batch_size):
+                #        generated += 1
+                #        text = enc.decode(out[i])
+                ##        #print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
                         print(text)
 
+                #print ("!!!8")
+                out = sess.run(output, feed_dict={
+                    context: [context_tokens for _ in range(batch_size)]
+                })[:, len(context_tokens):]
+                print ("!!!9")
+                
+
+                text = enc.decode(out[i])
+                #print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
+                print(text)
+
                 response = text
-
-
-
+                print("Response is:")
+                print(response)
 
                 #self.wfile.write(self._html("hi!"))
                 self.wfile.write(response.encode(encoding='utf_8'))

@@ -35,6 +35,7 @@ module.exports=function(app,logger){
         pythonProcess.stdout.setEncoding('utf-8');
         console.log("Waiting...")
         pythonProcess.stdout.on('data', function(data) {
+            console.log("Got response! Response is:");
             console.log(data);
             console.log(typeof data);
 	    var answer = data;
@@ -61,6 +62,7 @@ module.exports=function(app,logger){
             //console.log(data);
             //console.log(typeof data)
             res.send(answer);
+            console.log("Response sent")
 
         });
         pythonProcess.stderr.on('data', function(data) {
