@@ -103,33 +103,6 @@ def interact_model(
         print(ckpt)
         saver.restore(sess, ckpt)
 
-        #while True:
-        #print ("Using:")
-        #print (raw_text)
-
-        if 1==0:
-            #raw_text = input("Model prompt >>> ")
-            #while not raw_text:
-            #    print('Prompt should not be empty!')
-            #    raw_text = input("Model prompt >>> ")
-            print ("!!!6")
-            context_tokens = enc.encode(raw_text)
-            generated = 0
-            print ("!!!7")
-            for _ in range(nsamples // batch_size):
-                print ("!!!8")
-                out = sess.run(output, feed_dict={
-                    context: [context_tokens for _ in range(batch_size)]
-                })[:, len(context_tokens):]
-                print ("!!!9")
-                for i in range(batch_size):
-                    generated += 1
-                    text = enc.decode(out[i])
-                    #print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
-                    print(text)
-            #print("=" * 80)
-
-
 
 
 
@@ -175,15 +148,25 @@ def interact_model(
                 #        print(text)
 
                 #print ("!!!8")
+                #output = sample.sample_sequence(
+                #    hparams     = hparams, 
+                #    length      = length,
+                #    context     = context,
+                #    batch_size  = batch_size,
+                #    temperature = temperature, 
+                #    top_k       = top_k, 
+                #    top_p       = top_p
+                #)
+
                 out = sess.run(output, feed_dict={
                     context: [context_tokens for _ in range(batch_size)]
                 })[:, len(context_tokens):]
                 print ("!!!9")
-                
+                print(out)
 
-                text = enc.decode(out[i])
+                text = enc.decode(out[0])
                 #print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
-                print(text)
+                #print(text)
 
                 response = text
                 print("Response is:")
@@ -191,6 +174,7 @@ def interact_model(
 
                 #self.wfile.write(self._html("hi!"))
                 self.wfile.write(response.encode(encoding='utf_8'))
+                print("---SENT!----\n\n\")
 
             def do_HEAD(self):
                 self._set_headers()
