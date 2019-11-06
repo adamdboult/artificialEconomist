@@ -174,7 +174,7 @@ def interact_model(
 
                 #self.wfile.write(self._html("hi!"))
                 self.wfile.write(response.encode(encoding='utf_8'))
-                print("---SENT!----\n\n\")
+                print("---SENT!----\n\n")
 
             def do_HEAD(self):
                 self._set_headers()
