@@ -10,7 +10,7 @@ var fs=require('fs');
 //var postDate;
 //var postNoType;
 //var postFull;
-
+/*
 function timeoutTest(res) {
     console.log("ready");
     res.send("Ipsum lorem");
@@ -19,7 +19,7 @@ function timeoutTest(res) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+*/
 module.exports=function(app,logger){
     'use strict';
     //var DataSerie=require(__dirname+'/../models/data.js');
@@ -34,7 +34,7 @@ module.exports=function(app,logger){
     app.get('/about', function(req, res){
 	res.render('about',{user:req.user});
     });
-    /*
+    
     app.post("/submit_question", function(req, res) {
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
@@ -58,8 +58,8 @@ module.exports=function(app,logger){
         });
 
     });
-    */
-
+    
+    /*
     app.post("/submit_question", function(req, res) {
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
@@ -72,6 +72,6 @@ module.exports=function(app,logger){
         //res.send(question);
 
     });
-
+    */
 };
 
