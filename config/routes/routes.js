@@ -11,6 +11,15 @@ var fs=require('fs');
 //var postNoType;
 //var postFull;
 
+function timeoutTest(res) {
+    console.log("ready");
+    res.send("Ipsum lorem");
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports=function(app,logger){
     'use strict';
     //var DataSerie=require(__dirname+'/../models/data.js');
@@ -54,11 +63,13 @@ module.exports=function(app,logger){
     app.post("/submit_question", function(req, res) {
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
-        var spawn = require("child_process").spawn;
-        console.log("Spawning...")
-        var pythonProcess = spawn('python3',["./runQuery.py", question]);
-        pythonProcess.stdout.setEncoding('utf-8');
-        res.send("Ipsum lorem")
+        //await sleep(2000);
+        setTimeout(function() {
+            timeoutTest(res);
+        }, 1000 * 60 * 10);
+        //timeoutTest,3000);
+        console.log("done");
+        //res.send(question);
 
     });
 

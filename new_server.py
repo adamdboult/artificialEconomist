@@ -80,7 +80,7 @@ def interact_model(
     print ("!!!3")
 
     config = tf.ConfigProto(
-        device_count = {'GPU': 0}
+        device_count = {'GPU': 1}
     )
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
