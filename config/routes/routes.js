@@ -36,13 +36,19 @@ module.exports=function(app,logger){
     });
     
     app.post("/submit_question", function(req, res) {
+
+        timeout_ms = 1000 * 60 * 30;
+
+        req.setTimeout(timeout_ms);
+
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
+
         var spawn = require("child_process").spawn;
-        console.log("Spawning...")
         var pythonProcess = spawn('python3',["./runQuery.py", question]);
         pythonProcess.stdout.setEncoding('utf-8');
         console.log("Waiting...")
+
         pythonProcess.stdout.on('data', function(data) {
             console.log("Got response! Response is:");
             console.log(data);
