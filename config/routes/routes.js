@@ -38,7 +38,7 @@ module.exports=function(app,logger){
     var responses = {};
     
     app.post("/check_answer", function(req, res) {
-        console.log(responses);
+        //console.log(responses);
 
         var id = Object.keys(req.body)[0];
 
@@ -63,6 +63,13 @@ module.exports=function(app,logger){
 
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
+        if (typeof question == undefined) {
+            question = "";
+        }
+
+        if (question.slice(-1) != "?") {
+            question += "?";
+        }
 
         var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
         
@@ -77,7 +84,11 @@ module.exports=function(app,logger){
             console.log("Got response! Response is:");
             console.log(data);
             console.log(typeof data);
+
 	    var answer = data;
+            if (answer[0] == " ") {
+                answer = answer.substring(1);
+            }
             //res.send(answer);
             responses[id] = answer
 

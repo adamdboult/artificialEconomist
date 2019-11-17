@@ -7,8 +7,11 @@ import requests
 from bs4 import BeautifulSoup
 import shutil
 
+import string
 
 import os
+
+import re
     
 bs = BeautifulSoup
 
@@ -20,36 +23,50 @@ import urllib.request
 print(1)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 print(current_dir)
-source_dir = os.path.join(current_dir, "TXT")
+source_dir = os.path.join(current_dir, "raw_TXT")
 print(source_dir)
 source_list = os.listdir(source_dir)
 #print(source_list)
+
+dest_dir = os.path.join(current_dir, "clean_TXT")
 
 ###############
 # CLEAN FILES #
 ###############
 i = 0
+
+printable = set(string.printable)
 for source in source_list:
-    if i == 1:
-        continue
-    source_path = os.path.join(current_dir, "TXT", source)
-    print(1)
-    print(source_path)
+    #if i == 1:
+    #    continue
+    source_path = os.path.join(current_dir, "raw_TXT", source)
+    dest_path = os.path.join(current_dir, "clean_TXT", source)
+    #print(1)
+    #print(source_path)
     #print(source)
+    output_rows = []
     with open(source_path, "r") as f:
         lines = f.readlines()
         for line in lines:
             skip = 0
+
+            line = re.sub(r'[^\x00-\x7f]',r'', line) 
+            line = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff]', '', line)
+            #line = filter(lambda x: x in printable, line)
+            #print(line)
+
             if len(line) < 15:
                 skip = 1
+            if skip == 0:
+                output_rows.append(line)
             #print(len(line))
-            print(line)
-            print(skip)
+            #print(line)
+            #print(skip)
+        #print(output_rows)
     i = 1
+    with open(dest_path, "w") as f:
+        for row in output_rows:
+            f.write(row)
         
 
-#loop over rows
-#remove if blank
-#remove if just a number
 
-#remove if length less than 15 characters
