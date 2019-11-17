@@ -35,8 +35,63 @@ module.exports=function(app,logger){
 	res.render('about',{user:req.user});
     });
     
+    var responses = {};
+    
+    app.post("/check_answer", function(req, res) {
+        console.log(responses);
+
+        var id = Object.keys(req.body)[0];
+
+        var response = responses[id];
+        console.log(response);
+        if (response !== undefined) {
+            //res.send(response);
+            res.send(response);
+            console.log("Response sent");
+        }
+        else {
+            res.send("BBnoresponse");
+        }
+
+    });
+    
     app.post("/submit_question", function(req, res) {
 
+        //var timeout_ms = 1000 * 60 * 30;
+
+        //req.setTimeout(timeout_ms);
+
+        var question = Object.keys(req.body)[0];
+        console.log("Got question: " + question);
+
+        var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
+        
+
+        var spawn = require("child_process").spawn;
+        var pythonProcess = spawn('python3',["./runQuery.py", question]);
+        pythonProcess.stdout.setEncoding('utf-8');
+        console.log("Waiting...")
+        res.send(id);
+
+        pythonProcess.stdout.on('data', function(data) {
+            console.log("Got response! Response is:");
+            console.log(data);
+            console.log(typeof data);
+	    var answer = data;
+            //res.send(answer);
+            responses[id] = answer
+
+
+        });
+        pythonProcess.stderr.on('data', function(data) {
+            console.log("error");
+            console.log(data.toString());
+        });
+
+    });
+    /*
+    app.post("/submit_question", function(req, res) {
+    
         //var timeout_ms = 1000 * 60 * 30;
 
         //req.setTimeout(timeout_ms);
@@ -62,20 +117,6 @@ module.exports=function(app,logger){
             console.log("error");
             console.log(data.toString());
         });
-
-    });
-    
-    /*
-    app.post("/submit_question", function(req, res) {
-        var question = Object.keys(req.body)[0];
-        console.log("Got question: " + question);
-        //await sleep(2000);
-        setTimeout(function() {
-            timeoutTest(res);
-        }, 1000 * 60 * 10);
-        //timeoutTest,3000);
-        console.log("done");
-        //res.send(question);
 
     });
     */

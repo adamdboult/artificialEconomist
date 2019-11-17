@@ -28,6 +28,31 @@ block content
 		//		p(id="questionResponse")
 		//p(id="demo")
 		script
+			| function waitForStatus(id) {
+			| 	var count = 0;
+			| 	var restartCheck = setInterval(function() {
+			| 		count++;
+			| 		$.ajax({
+			| 			url: "check_answer",
+			| 			type: "POST",
+			| 			data: id,
+			| 			success: function(result) {
+			| 				console.log(count);
+			| 				console.log(result);
+			| 				if (result != "BBnoresponse") {
+			| 					newResult = result.replace(/\n/g, '<br/>')
+			| 					$("#questionResponse").html(newResult);
+			| 					$("#submitButton").show();
+			| 					$("#waitButton").hide();
+			| 					clearInterval(restartCheck);
+			| 					
+			| 				}
+			| 				
+			| 			}
+			| 			
+			| 		});
+			|       }, 5000);
+			| }
 			| $(document).ready(function(){
 			| 	$("#waitButton").hide()
 			| 	$("#submitButton").click(function(){
@@ -37,12 +62,13 @@ block content
 			| 		$("#waitButton").show();
 			| 		$("#questionResponseHeader").html(question)
 			| 		$.ajax({type: "POST", url: "submit_question", data: question, success: function(result){
-			| 			console.log("Got response!");
+			| 			console.log("Got initial response!");
 			| 			console.log(result);
-			| 			newResult = result.replace(/\n/g, '<br/>')
-			| 			$("#questionResponse").html(newResult);
-			| 			$("#submitButton").show();
-			| 			$("#waitButton").hide();
+			| 			waitForStatus(result);
+			| 			//newResult = result.replace(/\n/g, '<br/>')
+			| 			//$("#questionResponse").html(newResult);
+			| 			//$("#submitButton").show();
+			| 			//$("#waitButton").hide();
 			| 		}});
 			| 		$("#questionResponse").html("<i>Please wait...</i>");
 			| 	});
