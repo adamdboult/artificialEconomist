@@ -37,9 +37,9 @@ module.exports=function(app,logger){
     
     app.post("/submit_question", function(req, res) {
 
-        var timeout_ms = 1000 * 60 * 30;
+        //var timeout_ms = 1000 * 60 * 30;
 
-        req.setTimeout(timeout_ms);
+        //req.setTimeout(timeout_ms);
 
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
