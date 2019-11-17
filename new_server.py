@@ -79,8 +79,9 @@ def interact_model(
         raise ValueError("Can't get samples longer than window size: %s" % hparams.n_ctx)
     print ("!!!3")
 
+    # Keep this as 0 to force CPU.
     config = tf.ConfigProto(
-        device_count = {'GPU': 1}
+        device_count = {'GPU': 0}
     )
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
