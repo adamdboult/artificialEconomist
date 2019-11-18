@@ -36,7 +36,7 @@ def interact_model(
     batch_size=1,
     length=None,
     temperature=0.3,
-    top_k=40.0,
+    top_k=20,
 #    top_k=0,
     top_p=0.0,
 #    top_p=0.0,
