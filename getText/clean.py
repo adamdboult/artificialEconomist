@@ -23,7 +23,7 @@ import urllib.request
 print(1)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 print(current_dir)
-source_dir = os.path.join(current_dir, "raw_TXT")
+source_dir = os.path.join(current_dir, "econstor_TXT")
 print(source_dir)
 source_list = os.listdir(source_dir)
 #print(source_list)
@@ -39,7 +39,7 @@ printable = set(string.printable)
 for source in source_list:
     #if i == 1:
     #    continue
-    source_path = os.path.join(current_dir, "raw_TXT", source)
+    source_path = os.path.join(current_dir, "econstor_TXT", source)
     dest_path = os.path.join(current_dir, "clean_TXT", source)
     #print(1)
     #print(source_path)
