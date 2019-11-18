@@ -35,10 +35,10 @@ def interact_model(
     nsamples=1,
     batch_size=1,
     length=None,
-    temperature=1,
+    temperature=0.3,
     top_k=40.0,
 #    top_k=0,
-    top_p=0.9,
+    top_p=0.0,
 #    top_p=0.0,
     raw_text="t"
 ):

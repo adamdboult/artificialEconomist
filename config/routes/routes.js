@@ -41,6 +41,8 @@ module.exports=function(app,logger){
         //console.log(responses);
 
         var id = Object.keys(req.body)[0];
+        print("ID is ", id);
+        print("IDs with answers are ", Object.keys(responses));
 
         var response = responses[id];
         console.log(response);
