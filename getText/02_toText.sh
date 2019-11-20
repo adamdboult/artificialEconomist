@@ -11,16 +11,16 @@ for filename in ./econstor_PDF/*.pdf; do
     name=$(basename "$filename")
     nameNoExt=$(basename "$filename" ".pdf")
     echo "Converting $name..."
-    pdftotext "./econstor_PDF/$name" "./raw_TXT/$nameNoExt.txt"
+    pdftotext "./PDF_econstor/$name" "./TXT_raw/$nameNoExt.txt"
 done
 
 #############
 # Do others #
 #############
-#for filename in ./manual_PDF/*.pdf; do
-#    name=$(basename "$filename")
-#    nameNoExt=$(basename "$filename" ".pdf")
-#    echo "Converting $name..."
-#    pdftotext "./manual_PDF/$name" "./raw_TXT/$nameNoExt.txt"
-#done
+for filename in ./PDF_manual/*.pdf; do
+    name=$(basename "$filename")
+    nameNoExt=$(basename "$filename" ".pdf")
+    echo "Converting $name..."
+    pdftotext "./PDF_manual/$name" "./TXT_raw/$nameNoExt.txt"
+done
 

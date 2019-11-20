@@ -15,4 +15,6 @@ public/
 *__pycache__/
 rawData/
 artillery_*
+getText/PDF*/
+getText/TXT*/
 
