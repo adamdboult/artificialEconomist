@@ -25,7 +25,7 @@ preURLs = [
 URLs = []
 
 for preURL in preURLs:
-    for page in range(1, 3):
+    for page in range(1, 100):
         start = ((page - 1) * 100) + 0
         newURL = preURL + "&offset=" + str(start)
         URLs.append(newURL)
