@@ -17,36 +17,20 @@ import urllib.request
 ######################
 # GET URLS TO SCRAPE #
 ######################
-preURLs = [
-    #"https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-policy%20statements",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-feedback%20statements",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
-    #           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-finalised%20guidance",
-    #           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-calls%20for%20input",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-consultation%20papers",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-guidance%20consultations",
-    #           "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-newsletters",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-multi-firm%20reviews",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-research"
-]
 
 preURLs = [
-    "https://www.econstor.eu/browse?type=doctype&sort_by=1&order=DESC&rpp=100&etal=-1&value=Working+Paper&offset=500"
+    "https://www.econstor.eu/browse?type=doctype&sort_by=1&order=DESC&rpp=100&etal=-1&value=Working+Paper"
 ]
 
 URLs = []
 
 for preURL in preURLs:
-    for page in range(1, 2):
+    for page in range(1, 3):
         start = ((page - 1) * 100) + 0
         newURL = preURL + "&offset=" + str(start)
         URLs.append(newURL)
         
-#print("\n".join(URLs))
-print (URLs)
+print("\n".join(URLs))
 
 ###########################
 # Get list of actual URLs #
@@ -57,7 +41,7 @@ for URL in URLs:
     response = requests.get(URL, stream=True)
 
     soup = bs(response.text, "lxml")
-    print(soup)
+    #print(soup)
     for link in soup.find_all('a'): # Finds all links
         #print(link)
         if "/handle" in str(link): # If the link ends in .pdf
@@ -85,9 +69,6 @@ for URL in secondLinkList:
                 link_list.append(link.get('href'))
 
 print("\n".join(link_list))
-#print(link_list)
-
-
 
 #################
 # DOWNLOAD PDFs #
@@ -110,7 +91,7 @@ for link in link_list:
     request = urllib.request.Request(url=link, headers=hdr)
     response = urllib.request.urlopen(request)
     
-    file = open("PDF_econstor/" + str(i) + ".pdf", "wb")
+    file = open("PDF_econstor/econstor_" + str(i) + ".pdf", "wb")
     file.write(response.read())
     file.close()
     i = i + 1

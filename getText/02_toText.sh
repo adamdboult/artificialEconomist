@@ -1,13 +1,13 @@
 ######################
 # CONVERT PDF TO TXT #
 ######################
-mkdir -p ./raw_TXT/
+mkdir -p ./TXT_raw/
 
 
 #########
 # First #
 #########
-for filename in ./econstor_PDF/*.pdf; do
+for filename in ./PDF_econstor/*.pdf; do
     name=$(basename "$filename")
     nameNoExt=$(basename "$filename" ".pdf")
     echo "Converting $name..."
