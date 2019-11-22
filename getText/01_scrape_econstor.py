@@ -57,8 +57,12 @@ print("\n".join(secondLinkList))
 ########################
 link_list = []
 
+n = len(secondLinkList)
+i = 0
 for URL in secondLinkList:
     #print(URL)
+    i = i + 1
+    print("At", i, "of", n)
     response = requests.get(URL, stream=True)
 
     soup = bs(response.text, "lxml")

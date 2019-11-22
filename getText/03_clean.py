@@ -33,10 +33,11 @@ dest_dir = os.path.join(current_dir, "TXT_clean")
 ###############
 # CLEAN FILES #
 ###############
-i = 0
+i = 1
 
 printable = set(string.printable)
 for source in source_list:
+    print("At", i, "of", len(source_list))
     #if i == 1:
     #    continue
     source_path = os.path.join(current_dir, "TXT_raw", source)
@@ -63,7 +64,7 @@ for source in source_list:
             #print(line)
             #print(skip)
         #print(output_rows)
-    i = 1
+    i = i + 1
     with open(dest_path, "w") as f:
         for row in output_rows:
             f.write(row)

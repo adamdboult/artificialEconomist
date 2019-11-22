@@ -2,7 +2,7 @@
 # CONCATENATE #
 ###############
 echo "Concatenating..."
-cat ./clean_TXT/*.txt > ./merged_file.txt
+cat ./TXT_clean/*.txt > ./merged_file.txt
 
 ##############
 # CLEAN FILE #
