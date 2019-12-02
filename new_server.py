@@ -29,7 +29,8 @@ import model, sample, encoder
 
 
 def interact_model(
-    model_name='117M',
+    model_name='econstormodel',
+    #model_name='117M',
     #model_name='myModel',
     seed=None,
     nsamples=1,
