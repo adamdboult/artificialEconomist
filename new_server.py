@@ -175,10 +175,30 @@ def interact_model(
                 print(response)
                 end_of_text = "<|endoftext|>"
                 position = str.find(response, end_of_text)
+
                 if position >= 0:
                     response = response[:position]
+
+                response_list = response.split(".\n")
+
+                final_text = ""
+
+                for i in range(len(text)):
+                    response_list[i] = response_list[i].replace("\n", " ")
+                    response_list[i] = response_list[i].replace("\t", " ")
+                    response_list[i] = response_list[i].replace("\s", " ")
+
+                    response_list[i] = response_list[i] + "."
+                    response_list[i] = response_list[i].replace("..", ".")
+                    response_list[i] = response_list[i].replace("  ", " ")
+                    response_list[i] = response_list[i].replace("  ", " ")
+                    response_list[i] = response_list[i].replace("  ", " ")
+                    response_list[i] = response_list[i].replace(" .", ".")
+
+                    final_text = final_text + response_list[i] + "\n\n"
+
                 #self.wfile.write(self._html("hi!"))
-                self.wfile.write(response.encode(encoding='utf_8'))
+                self.wfile.write(final_text.encode(encoding='utf_8'))
                 print("---SENT!----\n\n")
 
             def do_HEAD(self):
