@@ -172,7 +172,10 @@ def interact_model(
                 response = text
                 print("Response is:")
                 print(response)
-
+                end_of_text = "<|endoftext|>"
+                position = str.find(response, end_of_text)
+                if position >= 0:
+                    response = response[:position]
                 #self.wfile.write(self._html("hi!"))
                 self.wfile.write(response.encode(encoding='utf_8'))
                 print("---SENT!----\n\n")
