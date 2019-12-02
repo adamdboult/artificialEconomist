@@ -132,7 +132,8 @@ def interact_model(
                 print(raw_text)
                 #response = self._html("hi!")
                 response = "this is text: " + raw_text
-
+                if len(raw_text) > 50:
+                    raw_text = raw_text[:50]
 
                 context_tokens = enc.encode(raw_text)
                 generated = 0
@@ -183,7 +184,7 @@ def interact_model(
 
                 final_text = ""
 
-                for i in range(len(text)):
+                for i in range(len(response_list)):
                     response_list[i] = response_list[i].replace("\n", " ")
                     response_list[i] = response_list[i].replace("\t", " ")
                     response_list[i] = response_list[i].replace("\s", " ")
