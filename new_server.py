@@ -81,9 +81,9 @@ def interact_model(
     print ("!!!3")
 
     # Keep this as 0 to force CPU.
-    config = tf.ConfigProto(
-        device_count = {'GPU': 0}
-    )
+    #config = tf.ConfigProto(
+    #    device_count = {'GPU': 0}
+    #)
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
     with tf.Session(graph=tf.Graph(), config=config) as sess:
@@ -123,21 +123,17 @@ def interact_model(
                 return content.encode("utf8")  # NOTE: must return a bytes object!
 
             def do_GET(self):
-                print("START")
-                print(self.path)
-                print("END")
                 self._set_headers()
 
                 raw_text = unquote(self.path[1:])
-                print(raw_text)
-                #response = self._html("hi!")
-                response = "this is text: " + raw_text
                 if len(raw_text) > 50:
                     raw_text = raw_text[:50]
+                print("----GOT QUESTION----")
+                print(raw_text)
 
                 context_tokens = enc.encode(raw_text)
                 generated = 0
-                print ("!!!7")
+                #print ("!!!7")
                 #for _ in range(nsamples // batch_size):
                 #    print ("!!!8")
                 #    out = sess.run(output, feed_dict={
@@ -164,14 +160,18 @@ def interact_model(
                 out = sess.run(output, feed_dict={
                     context: [context_tokens for _ in range(batch_size)]
                 })[:, len(context_tokens):]
-                print ("!!!9")
-                print(out)
+                #print ("!!!9")
+                #print("Got answer:")
+                #print(out)
 
                 text = enc.decode(out[0])
                 #print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
                 #print(text)
 
                 response = text
+                print("----GOT RESPONSE----")
+                print("Question is:")
+                print(raw_text)
                 print("Response is:")
                 print(response)
                 end_of_text = "<|endoftext|>"
@@ -197,10 +197,12 @@ def interact_model(
                     response_list[i] = response_list[i].replace(" .", ".")
 
                     final_text = final_text + response_list[i] + "\n\n"
-
+                print("Final text is:")
+                print(final_text)
                 #self.wfile.write(self._html("hi!"))
                 self.wfile.write(final_text.encode(encoding='utf_8'))
                 print("---SENT!----\n\n")
+
 
             def do_HEAD(self):
                 self._set_headers()

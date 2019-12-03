@@ -41,11 +41,11 @@ module.exports=function(app,logger){
         //console.log(responses);
 
         var id = Object.keys(req.body)[0];
-        console.log("ID is " + id);
-        console.log("IDs with answers are " + Object.keys(responses));
+        //console.log("ID is " + id);
+        //console.log("IDs with answers are " + Object.keys(responses));
 
         var response = responses[id];
-        console.log(response);
+        //console.log(response);
         if (response !== undefined) {
             //res.send(response);
             res.send(response);
