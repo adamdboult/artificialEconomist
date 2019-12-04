@@ -17,8 +17,16 @@ from urllib.parse import unquote
 import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
+import sys
+sys.path.insert(1, '/home/adam/Projects/GPT-2-FCA/gpt-2/src')
 
 import model, sample, encoder
+
+
+#import os
+file_path = os.path.dirname(os.path.abspath(__file__))
+os.chdir(file_path)
+os.chdir("./gpt-2")
 
 
 #file_path = os.path.dirname(os.path.abspath(__file__))

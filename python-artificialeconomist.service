@@ -7,7 +7,7 @@ After=network.target
 #WorkingDirectory=/home/adam/Projects/GPT-2-FCA/gpt-2/
 Type=simple
 User=adam
-ExecStart=/usr/bin/python3 /home/adam/Projects/GPT-2-FCA/start_server.py
+ExecStart=/usr/bin/python3 /home/adam/Projects/GPT-2-FCA/new_server.py
 Restart=always
 WatchogSec=604800
 
