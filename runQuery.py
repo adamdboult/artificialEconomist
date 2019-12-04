@@ -6,13 +6,14 @@ import subprocess
 #sys.stdout.flush()
 
 
-question = sys.argv[1]
+#question    = sys.argv[1]
+id_and_question = sys.argv[1]
 #print(question)
 os.chdir("./gpt-2")
 
 #result = subprocess.run(["./src/interactive_conditional_samples_AB.py", "--raw_text", question, "--model_name", "myModel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #result = subprocess.run(["./src/interactive_conditional_samples_AB.py", "--raw_text", question, "--model_name", "117M"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-result = subprocess.run(["wget", "-qO-", "localhost:8000/" + question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+result = subprocess.run(["wget", "-qO-", "localhost:8000/" + id_and_question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #print("Output:")
 #decoded = result.decode("UTF-8")
 #cleanResult = str(result.stdout)

@@ -20,7 +20,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 */
-module.exports=function(app,logger){
+module.exports=function(app, db, logger){
     'use strict';
     //var DataSerie=require(__dirname+'/../models/data.js');
     //var rootObject={root:__dirname+'/../../public'};
@@ -43,7 +43,7 @@ module.exports=function(app,logger){
         var id = Object.keys(req.body)[0];
         //console.log("ID is " + id);
         //console.log("IDs with answers are " + Object.keys(responses));
-
+        /*
         var response = responses[id];
         //console.log(response);
         if (response !== undefined) {
@@ -54,6 +54,20 @@ module.exports=function(app,logger){
         else {
             res.send("BBnoresponse");
         }
+        */
+
+
+        db.collection('posts').findOne({"id": id}, "id question response", function(err, doc){
+            if (err) return handleError(err);
+            if (doc == null) {
+                res.send("BBnoresponse");
+            }
+            else {
+                res.send(doc.response);
+            }
+            //console.log("here");
+            //console.log(doc);
+        });
 
     });
     
@@ -73,11 +87,12 @@ module.exports=function(app,logger){
             question += "?";
         }
 
-        var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
+        var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 50);
         
+        var id_and_question = id + "|" + question
 
         var spawn = require("child_process").spawn;
-        var pythonProcess = spawn('python3',["./runQuery.py", question]);
+        var pythonProcess = spawn('python3',["./runQuery.py", id_and_question]);
         pythonProcess.stdout.setEncoding('utf-8');
         console.log("Waiting...")
         res.send(id);
@@ -102,36 +117,5 @@ module.exports=function(app,logger){
         });
 
     });
-    /*
-    app.post("/submit_question", function(req, res) {
-    
-        //var timeout_ms = 1000 * 60 * 30;
-
-        //req.setTimeout(timeout_ms);
-
-        var question = Object.keys(req.body)[0];
-        console.log("Got question: " + question);
-
-        var spawn = require("child_process").spawn;
-        var pythonProcess = spawn('python3',["./runQuery.py", question]);
-        pythonProcess.stdout.setEncoding('utf-8');
-        console.log("Waiting...")
-
-        pythonProcess.stdout.on('data', function(data) {
-            console.log("Got response! Response is:");
-            console.log(data);
-            console.log(typeof data);
-	    var answer = data;
-            res.send(answer);
-            console.log("Response sent")
-
-        });
-        pythonProcess.stderr.on('data', function(data) {
-            console.log("error");
-            console.log(data.toString());
-        });
-
-    });
-    */
 };
 

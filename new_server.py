@@ -5,6 +5,9 @@ import json
 import os
 import numpy as np
 import tensorflow as tf
+#import tensorflow-gpu as tf
+
+import pymongo
 
 from urllib.parse import unquote
 
@@ -26,6 +29,17 @@ import model, sample, encoder
 #os.chdir(dest_path)
 #os.chdir("./gpt-2")
 
+mongo_client = pymongo.MongoClient('localhost', 27017)
+
+my_db = mongo_client.pymongo_test
+posts = my_db.posts
+post_data = {
+    'title': 'Python and MongoDB',
+    'content': 'PyMongo is fun, you guys',
+    'author': 'Scott'
+}
+result = posts.insert_one(post_data)
+print('One post: {0}'.format(result.inserted_id))
 
 
 def interact_model(
@@ -81,9 +95,10 @@ def interact_model(
     print ("!!!3")
 
     # Keep this as 0 to force CPU.
-    #config = tf.ConfigProto(
-    #    device_count = {'GPU': 0}
-    #)
+    config = tf.ConfigProto(
+        device_count = {'GPU': 0}
+        #device_count = {'GPU': 1}
+    )
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
     with tf.Session(graph=tf.Graph(), config=config) as sess:
@@ -125,10 +140,17 @@ def interact_model(
             def do_GET(self):
                 self._set_headers()
 
-                raw_text = unquote(self.path[1:])
+                id_and_question = unquote(self.path[1:])
+                id_end = str.find(id_and_question, "|")
+                
+                question_id = id_and_question[:id_end]
+                raw_text    = id_and_question[id_end + 1:]
+                #raw_text = unquote(self.path[1:])
                 if len(raw_text) > 50:
                     raw_text = raw_text[:50]
                 print("----GOT QUESTION----")
+                #print(id_and_question)
+                print(question_id)
                 print(raw_text)
 
                 context_tokens = enc.encode(raw_text)
@@ -202,6 +224,13 @@ def interact_model(
                 #self.wfile.write(self._html("hi!"))
                 self.wfile.write(final_text.encode(encoding='utf_8'))
                 print("---SENT!----\n\n")
+                post_data = {
+                    'id': question_id,
+                    'question': raw_text,
+                    'response': final_text
+                }
+                result = posts.insert_one(post_data)
+
 
 
             def do_HEAD(self):

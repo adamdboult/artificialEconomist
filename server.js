@@ -11,10 +11,34 @@ var express  = require('express'),
     fs=require('fs'),
     forceDomain = require("forcedomain"),
     favicon = require('serve-favicon'),
+    mongoose = require('mongoose'),
+
     spawn = require('child_process').spawn;
 
 // config
 var configObj = JSON.parse(fs.readFileSync(__dirname + '/private/config.json' , 'utf8'));
+
+
+
+//CONNECT TO MONGODB
+//mongoose.connect('mongodb://localhost/' + configObj.databaseName, function(err) {
+var database_name = "pymongo_test"
+
+mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, function(err) {
+    if (err) logger.debug("ERR" + err);
+});
+var db = mongoose.connection;
+
+db.collection('posts').findOne({"id": "mjcdaxb"}, "id question resonse", function(err, doc){
+    if (err) return handleError(err);
+
+    if (doc == null) {
+        console.log("None");
+    }
+
+    console.log("here");
+    console.log(doc);
+});
 
 //START EXPRESS
 var app = express();
@@ -53,7 +77,7 @@ app.locals.pretty=true;
 app.set('views',__dirname+'/src/jade/');
 app.set('view engine', 'jade');
 
-require(__dirname+'/config/routes/routes')(app, logger);
+require(__dirname+'/config/routes/routes')(app, db, logger);
 
 // Since this is the last non-error-handling
 // middleware used, we assume 404, as nothing else
