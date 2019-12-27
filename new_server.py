@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+import sys
+
+
+
 import fire
 import json
 import os
@@ -17,8 +22,25 @@ from urllib.parse import unquote
 import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-import sys
+
+if len(sys.argv) > 1:
+    gpu_flag = sys.argv[1]
+    gpu_flag = 1
+else:
+    gpu_flag = 0
+
+if gpu_flag == 0:
+    print("----Running in CPU mode")
+elif gpu_flag == 1:
+    print("----Running in GPU mode")
+else:
+    print(error)
+
+
+
 sys.path.insert(1, '/home/adam/Projects/GPT-2-FCA/gpt-2/src')
+
+
 
 import model, sample, encoder
 
@@ -103,10 +125,16 @@ def interact_model(
     print ("!!!3")
 
     # Keep this as 0 to force CPU.
-    config = tf.ConfigProto(
-        device_count = {'GPU': 0}
-        #device_count = {'GPU': 1}
-    )
+    if gpu_mode == 0:
+        config = tf.ConfigProto(
+            device_count = {'GPU': 0}
+            #device_count = {'GPU': 1}
+        )
+    else:
+        config = tf.ConfigProto(
+            device_count = {'GPU': 0}
+            #device_count = {'GPU': 1}
+        )
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
     with tf.Session(graph=tf.Graph(), config=config) as sess:
@@ -230,7 +258,7 @@ def interact_model(
                 print("Final text is:")
                 print(final_text)
                 #self.wfile.write(self._html("hi!"))
-                self.wfile.write(final_text.encode(encoding='utf_8'))
+                #self.wfile.write(final_text.encode(encoding='utf_8'))
                 print("---SENT!----\n\n")
                 post_data = {
                     'id': question_id,
