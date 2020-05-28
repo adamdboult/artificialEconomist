@@ -68,7 +68,7 @@ Query the model.
 ```
 
 # Copy the interactive_conditional_samples_AB
- Note that this updates the default top_k and top_p from 0 and 0 respectively.
+Note that this updates the default top_k and top_p from 0 and 0 respectively.
 
 # Getting the web server to work
 Install APT dependencies:

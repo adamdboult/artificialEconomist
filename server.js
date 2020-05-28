@@ -16,7 +16,7 @@ var express  = require('express'),
     spawn = require('child_process').spawn;
 
 // config
-var configObj = JSON.parse(fs.readFileSync(__dirname + '/private/config.json' , 'utf8'));
+var configObj = JSON.parse(fs.readFileSync(__dirname + '/config/config.json' , 'utf8'));
 
 
 

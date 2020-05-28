@@ -125,6 +125,7 @@ def interact_model(
     print ("!!!3")
 
     # Keep this as 0 to force CPU.
+    gpu_mode = 0
     if gpu_mode == 0:
         config = tf.ConfigProto(
             device_count = {'GPU': 0}
@@ -132,8 +133,8 @@ def interact_model(
         )
     else:
         config = tf.ConfigProto(
-            device_count = {'GPU': 0}
-            #device_count = {'GPU': 1}
+            #device_count = {'GPU': 0}
+            device_count = {'GPU': 1}
         )
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
