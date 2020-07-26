@@ -24,15 +24,23 @@ html(lang="en")
 			div.collapse.navbar-collapse#navbarNavAltMarkup
 				ul.navbar-nav
 					li.nav-item
-						//a.nav-link(href="/theory/") Notes
-				ul.navbar-nav.ml-auto
+						a.nav-link(href="/examples") Examples
 					li.nav-item
-						a.nav-link(href="https://www.economoose.com") Economoose
+						a.nav-link(href="/about") About
+					li.nav-item.dropdown
+						a.nav-link.dropdown-toggle(href="#", id=navbarOther, role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false") Other projects
+						div.dropdown-menu(aria-labelledby="navbarOther")
+							//a.dropdown-item(href="https://www.artificialeconomist.com") ArtificialEconomist.com
+							a.dropdown-item(href="https://www.economoose.com") Economoose.com
+							a.dropdown-item(href="https://www.yetipredict.com") YetiPredict.com
+				ul.navbar-nav.ml-auto
 					li.nav-item
 						a.nav-link(href="https://www.bou.lt") Bou.lt
 					li.nav-item
-						a.nav-link(href="https://www.yetipredict.com") YetiPredict
-					//li.nav-item
-					//	a.nav-link(href="/about/") About
-		block content
+						a.nav-link(href="https://github.com/adamdboult/") GitHub
+					li.nav-item
+						a.nav-link(href="https://www.linkedin.com/in/adamdboult") LinkedIn
+
+		.container
+			block content
 

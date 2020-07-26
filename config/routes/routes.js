@@ -82,9 +82,20 @@ module.exports=function(app, db, logger){
         if (typeof question == undefined) {
             question = "";
         }
+        // Remove non-ascii
+	question = question.replace(/[^\x00-\x7F]/g, "");
 
+        // Remove leading and trailing whitespace
+        question = question.trim();
+        
+        // Append "?" if missing from the end
         if (question.slice(-1) != "?") {
             question += "?";
+        }
+
+        // If too long, trim
+        if (question.length > 100) {
+            question = question.substring(0, 100);
         }
 
         var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 50);
