@@ -34,6 +34,10 @@ module.exports=function(app, db, logger){
     app.get('/about', function(req, res){
 	res.render('about',{user:req.user});
     });
+
+    app.get('/examples', function(req, res){
+	res.render('examples',{user:req.user});
+    });
     
     var responses = {};
     
