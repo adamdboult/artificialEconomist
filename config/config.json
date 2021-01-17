@@ -1,8 +1,0 @@
-{
-    "ports":{
-	"http": 8080
-    },
-    "siteName": "www.artificialeconomist.com",
-    "favicon": "/public/img/yetiPredict.ico"
-}
-

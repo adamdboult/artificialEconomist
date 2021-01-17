@@ -10,13 +10,12 @@ https://devtalk.nvidia.com/default/topic/1049266/jetson-nano/headless-os/
 APPEND ${cbootargs} rootfstype=ext4 root=/dev/mmcblk0p1 rw rootwait 3
 
 # Dependencies
-```
+```bash
 sudo apt-get install poppler-utils
 ```
 
-
 https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
-```
+```bash
 sudo pip3 install tensorflow-gpu
 ```
 Alternatively, if no GPU,
@@ -27,13 +26,11 @@ pip3 install tensorflow==1.12.0
 # Cloning GPT-2
 This will clone the GPT-2 model.
 
-
-```
+```bash
 git clone 'https://github.com/nshepperd/gpt-2.git'
 sudo pip3 install -r ./gpt-2/requirements.txt
 ./download_model.py 117M
 ```
-
 
 Follow the instructions around tensor flow from the DEVELOPERS.md file.
 

@@ -1,5 +1,5 @@
 //var express=require('express');
-var fs=require('fs');
+//var fs=require('fs');
 //var https=require('https');
 //var parseString = require('xml2js').parseString;
 
@@ -20,7 +20,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 */
-module.exports=function(app, db, logger){
+module.exports=function(app, db){
     'use strict';
     //var DataSerie=require(__dirname+'/../models/data.js');
     //var rootObject={root:__dirname+'/../../public'};

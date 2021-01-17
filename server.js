@@ -1,32 +1,63 @@
 "use strict";
 /*jshint node:true */
 
-//WINSTON
-var logger = require(__dirname + '/config/winston');
+// Dependencies
+var express  = require('express');
+var http     = require('http');
+var mongoose = require('mongoose');
 
-//DEPENDENCIES, 'jade' not included but referenced later
-var express  = require('express'),
-    http = require('http'),
-    https = require('https'),
-    fs=require('fs'),
-    forceDomain = require("forcedomain"),
-    favicon = require('serve-favicon'),
-    mongoose = require('mongoose'),
+////////////////////////////////////
+/* Process command line arguments */
+////////////////////////////////////
 
-    spawn = require('child_process').spawn;
+var http_port = 8080;
+if (process.argv[2] != null) {
+    http_port = process.argv[2];
+}
 
-// config
-var configObj = JSON.parse(fs.readFileSync(__dirname + '/config/config.json' , 'utf8'));
+var mongo_domain = "127.0.0.1";
+if (process.argv[3] != null) {
+    mongo_domain = process.argv[3];
+}
 
+var mongo_port = 27017;
+if (process.argv[4] != null) {
+    mongo_port = process.argv[4];
+}
 
+console.log("HTTP port is: "   + http_port);
+console.log("Mongo domain is: "+ mongo_domain);
+console.log("Mongo port is: "  + mongo_port);
 
-//CONNECT TO MONGODB
-//mongoose.connect('mongodb://localhost/' + configObj.databaseName, function(err) {
-var database_name = "pymongo_test"
+///////////
+/* Mongo */
+///////////
+var database_name = "artificialeconomist";
 
-mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, function(err) {
-    if (err) logger.debug("ERR" + err);
+mongoose.connect('mongodb://' + mongo_domain + ':' + mongo_port + '/' + database_name, { useNewUrlParser: true, useUnifiedTopology: true}, function(err) {
+    if (err) console.error("ERR" + err);
 });
+
+
+/*
+mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, function(err) {
+    if (err) console.error("ERR" + err);
+});
+*/
+/*
+if (process.argv[2] === "docker") {
+    mongoose.connect('mongodb://artificialeconomist_mongo:27992/' + database_name, { useNewUrlParser: true, useUnifiedTopology: true}, function(err) {
+        if (err) console.error("ERR" + err);
+    });
+}
+else {
+    mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, { useNewUrlParser: true, useUnifiedTopology: true}, function(err) {
+        if (err) console.error("ERR" + err);
+    });
+}
+*/
+
+
 var db = mongoose.connection;
 
 db.collection('posts').findOne({"id": "mjcdaxb"}, "id question resonse", function(err, doc){
@@ -40,44 +71,25 @@ db.collection('posts').findOne({"id": "mjcdaxb"}, "id question resonse", functio
     console.log(doc);
 });
 
+////////////////////////
+/* Express and routes */
+////////////////////////
+
 //START EXPRESS
 var app = express();
-/*
-app.use(forceDomain({
-    hostname: configObj.siteName,
-    //  port: 443,
-    protocol: 'https'
-}));
-*/
-//forward http to https
-/*
-function requireHTTPS(req, res, next) {
-    if (!req.secure) {
-        //FYI this should work for local development as well
-        return res.redirect('https://' + req.get('host') + req.url);
-    }
-    next();
-}
 
-app.use(requireHTTPS);
-*/
-app.set('trust proxy', 1);
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-//FAVICON
-app.use(favicon(__dirname + configObj.favicon));
+//const bodyParser = require('body-parser');
+//app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.json())
 
 //ROUTES
 app.use(express.static(__dirname + '/public'));// set the static files location /public/img will be /img for users
 
-app.locals.pretty=true;
-app.set('views',__dirname+'/src/jade/');
-app.set('view engine', 'jade');
+//app.locals.pretty=true;
+app.set('views',__dirname+'/src/pug/');
+app.set('view engine', 'pug');
 
-require(__dirname+'/config/routes/routes')(app, db, logger);
+require(__dirname+'/config/routes/routes')(app, db);
 
 // Since this is the last non-error-handling
 // middleware used, we assume 404, as nothing else
@@ -101,30 +113,12 @@ app.use(function(req, res, next){
     res.type('txt').send('Not found');
 });
 
-//HTTP
-var HTTPportnum=configObj.ports.http;
-var HTTPport = process.env.PORT || HTTPportnum;
-//app.listen(HTTPport);
-
-//HTTPS setup
-/*
-var HTTPSportnum = configObj.ports.https;
-var privateKey = fs.readFileSync(configObj.keys.privateKey);
-var certificate = fs.readFileSync(configObj.keys.certificate);
-//var certAuth = fs.readFileSync(configObj.keys.certAuth);
-var options = {key: privateKey,
-	       cert: certificate,
-//	       ca: certAuth
-	      };
-
-var httpsPort = process.env.PORT || HTTPSportnum;
-*/
-// LISTEN
+/////////////////
+/* HTTP server */
+/////////////////
 var httpServer=http.createServer(app);
+var HTTPport = process.env.PORT || http_port;
 httpServer.listen(HTTPport);
 
-logger.debug("App listening on port " + HTTPport);
+console.log("App listening on port " + http_port);
 
-//var httpsServer=https.createServer(options,app);
-//httpsServer.listen(httpsPort);
-//logger.debug("HTTPS on port "+httpsPort);
