@@ -32,7 +32,8 @@ console.log("Mongo port is: "  + mongo_port);
 ///////////
 /* Mongo */
 ///////////
-var database_name = "artificialeconomist";
+//var database_name = "artificialeconomist";
+var database_name = "pymongo_test";
 
 mongoose.connect('mongodb://' + mongo_domain + ':' + mongo_port + '/' + database_name, { useNewUrlParser: true, useUnifiedTopology: true}, function(err) {
     if (err) console.error("ERR" + err);
@@ -61,7 +62,7 @@ else {
 var db = mongoose.connection;
 
 db.collection('posts').findOne({"id": "mjcdaxb"}, "id question resonse", function(err, doc){
-    if (err) return handleError(err);
+    if (err) console.error("ERR" + err);
 
     if (doc == null) {
         console.log("None");
@@ -78,6 +79,13 @@ db.collection('posts').findOne({"id": "mjcdaxb"}, "id question resonse", functio
 //START EXPRESS
 var app = express();
 
+// Needed to accept posts from client (new question, ask for answer)
+//const bodyParser = require('body-parser');
+//app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.json())
+//app.use(express.json())
+
+app.use(express.urlencoded({extended : false}));
 //const bodyParser = require('body-parser');
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())

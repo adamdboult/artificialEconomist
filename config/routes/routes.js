@@ -3,6 +3,8 @@
 //var https=require('https');
 //var parseString = require('xml2js').parseString;
 
+var spawn = require("child_process").spawn;
+
 //var modelArray=[];
 //var blogArray=[];
 
@@ -39,13 +41,13 @@ module.exports=function(app, db){
 	res.render('examples',{user:req.user});
     });
     
-    var responses = {};
+    //var responses = {};
     
     app.post("/check_answer", function(req, res) {
         //console.log(responses);
 
         var id = Object.keys(req.body)[0];
-        //console.log("ID is " + id);
+        console.log("ID is " + id);
         //console.log("IDs with answers are " + Object.keys(responses));
         /*
         var response = responses[id];
@@ -69,8 +71,8 @@ module.exports=function(app, db){
             else {
                 res.send(doc.response);
             }
-            //console.log("here");
-            //console.log(doc);
+            console.log("here");
+            console.log(doc);
         });
 
     });
@@ -80,7 +82,17 @@ module.exports=function(app, db){
         //var timeout_ms = 1000 * 60 * 30;
 
         //req.setTimeout(timeout_ms);
-
+        //console.log("hia");
+        //console.log(req);
+        //console.log("hib");
+        //console.log(req.body);
+        //console.log("hi0");
+        //console.log(JSON.stringify(req));
+        //console.log("hi1");
+        //console.log(JSON.stringify(req.body));
+        //console.log("hi2");
+        //console.log(JSON.stringify(req.body));
+        //console.log("hi3");
         var question = Object.keys(req.body)[0];
         console.log("Got question: " + question);
         if (typeof question == undefined) {
@@ -104,14 +116,25 @@ module.exports=function(app, db){
 
         var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 50);
         
-        var id_and_question = id + "|" + question
+        var id_and_question = id + "|" + question;
 
-        var spawn = require("child_process").spawn;
+        
         var pythonProcess = spawn('python3',["./runQuery.py", id_and_question]);
-        pythonProcess.stdout.setEncoding('utf-8');
-        console.log("Waiting...")
+        //console.log("aaa");
+        //var pythonProcess = spawn('wget',["-qO-", "artificialeconomist_tensorflow:3563/" + id_and_question]);
+        //console.log("bbb");
+        //pythonProcess.stdout.setEncoding('utf-8');
+        
+        console.log("Waiting...");
         res.send(id);
-
+        
+        // NEW?
+        //var result = spawn(["wget", "-qO-", "artificialeconomist_tensorflow:3563/" + id_and_question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        //var result = spawn("wget", ["artificialeconomist_tensorflow:3563/" + id_and_question]);	
+        //console.log("new result is:");
+        //console.log(result);
+        // NEW? done
+        /*
         pythonProcess.stdout.on('data', function(data) {
             console.log("Got response! Response is:");
             console.log(data);
@@ -122,10 +145,15 @@ module.exports=function(app, db){
                 answer = answer.substring(1);
             }
             //res.send(answer);
-            responses[id] = answer
+            console.log("responses pre");
+            responses[id] = answer;
+            console.log("Responses after");
+            console.log(responses);
+            console.log("resposes done");
 
 
         });
+        */
         pythonProcess.stderr.on('data', function(data) {
             console.log("error");
             console.log(data.toString());

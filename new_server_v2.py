@@ -38,7 +38,7 @@ else:
 
 
 
-#sys.path.insert(1, '/home/adam/Projects/artificialEconomist/gpt-2/src')
+sys.path.insert(1, '/home/adam/Projects/artificialEconomist/gpt-2/src')
 
 
 
@@ -46,9 +46,9 @@ import model, sample, encoder
 
 
 #import os
-#file_path = os.path.dirname(os.path.abspath(__file__))
-#os.chdir(file_path)
-#os.chdir("./gpt-2")
+file_path = os.path.dirname(os.path.abspath(__file__))
+os.chdir(file_path)
+os.chdir("./gpt-2")
 
 
 #file_path = os.path.dirname(os.path.abspath(__file__))
@@ -59,16 +59,14 @@ import model, sample, encoder
 #os.chdir(dest_path)
 #os.chdir("./gpt-2")
 
-#mongo_client = pymongo.MongoClient('localhost', 27518)
-mongo_client = pymongo.MongoClient('artificialeconomist_mongo', 27518)
-
+mongo_client = pymongo.MongoClient('localhost', 27017)
 
 my_db = mongo_client.pymongo_test
 posts = my_db.posts
 post_data = {
     'title': 'Python and MongoDB',
-    'content': 'Artificial Economist data',
-    'author': 'Adam'
+    'content': 'PyMongo is fun, you guys',
+    'author': 'Scott'
 }
 result = posts.insert_one(post_data)
 print('One post: {0}'.format(result.inserted_id))
@@ -84,9 +82,9 @@ def interact_model(
     length=None,
     temperature=1,
     top_k=40,
-    #top_k=0,
-    top_p=0.9,
-    #top_p=0.0,
+#    top_k=0,
+    top_p=0.0,
+#    top_p=0.0,
     raw_text="t"
 ):
     """
@@ -114,10 +112,8 @@ def interact_model(
         batch_size = 1
     assert nsamples % batch_size == 0
     print ("here")
-    this_dir = os.path.join('models')
-    print(this_dir)
-    print(os.getcwd())
-    enc = encoder.get_encoder(model_name, './models')
+
+    enc = encoder.get_encoder(model_name)
     hparams = model.default_hparams()
     with open(os.path.join('models', model_name, 'hparams.json')) as f:
         hparams.override_from_dict(json.load(f))
@@ -129,35 +125,32 @@ def interact_model(
     print ("!!!3")
 
     # Keep this as 0 to force CPU.
-    #gpu_mode = 0
-    if gpu_flag == 0:
-        config = tf.ConfigProto(
+    gpu_mode = 0
+    if gpu_mode == 0:
+        config = tf.compat.v1.ConfigProto(
             device_count = {'GPU': 0}
             #device_count = {'GPU': 1}
         )
     else:
-        config = tf.ConfigProto(
+        config = tf.compat.v1.ConfigProto(
             #device_count = {'GPU': 0}
             device_count = {'GPU': 1}
         )
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
-    with tf.Session(graph=tf.Graph(), config=config) as sess:
+    with tf.compat.v1.Session(graph=tf.Graph(), config=config) as sess:
         print ("!!!4")
-        context = tf.placeholder(tf.int32, [batch_size, None])
+        context = tf.compat.v1.placeholder(tf.int32, [batch_size, None])
         np.random.seed(seed)
-        tf.set_random_seed(seed)
+        tf.compat.v1.set_random_seed(seed)
         output = sample.sample_sequence(
-            hparams=hparams,
-            length=length,
+            hparams=hparams, length=length,
             context=context,
             batch_size=batch_size,
-            temperature=temperature,
-            top_k=top_k,
-            top_p=top_p
+            temperature=temperature, top_k=top_k, top_p=top_p
         )
         print ("!!!5")
-        saver = tf.train.Saver()
+        saver = tf.compat.v1.train.Saver()
         ckpt = tf.train.latest_checkpoint(os.path.join('models', model_name))
         print(saver)
         print(sess)
@@ -178,9 +171,7 @@ def interact_model(
                 """This just generates an HTML document that includes `message`
                 in the body. Override, or re-write this do do more interesting stuff.
                 """
-                new_content_string = "<html><body><h1>" + message + "</h1></body></html>"
-                #content = f"<html><body><h1>{message}</h1></body></html>"
-                content = new_content_string
+                content = f"<html><body><h1>{message}</h1></body></html>"
                 return content.encode("utf8")  # NOTE: must return a bytes object!
 
             def do_GET(self):
@@ -276,9 +267,6 @@ def interact_model(
                     'response': final_text
                 }
                 result = posts.insert_one(post_data)
-                print('One post: {0}'.format(result.inserted_id))
-                print(result)
-                print("done")
 
 
 
@@ -291,14 +279,11 @@ def interact_model(
                 self.wfile.write(self._html("POST!"))
 
 
-        #def run(server_class=HTTPServer, handler_class=S, addr="localhost", port=3563):
-        def run(server_class=HTTPServer, handler_class=S, addr="artificialeconomist_tensorflow", port=3563):
+        def run(server_class=HTTPServer, handler_class=S, addr="localhost", port=8000):
             server_address = (addr, port)
             httpd = server_class(server_address, handler_class)
 
-            print_string = "Starting httpd server on " + str(addr) + ":" + str(port)
-            #print(f"Starting httpd server on {addr}:{port}")
-            print(print_string)
+            print(f"Starting httpd server on {addr}:{port}")
             httpd.serve_forever()
 
 
@@ -308,15 +293,14 @@ def interact_model(
         parser.add_argument(
             "-l",
             "--listen",
-            #default="localhost",
-            default="artificialeconomist_tensorflow",
+            default="localhost",
             help="Specify the IP address on which the server listens",
         )
         parser.add_argument(
             "-p",
             "--port",
             type=int,
-            default=3563,
+            default=8000,
             help="Specify the port on which the server listens",
         )
         args = parser.parse_args()
