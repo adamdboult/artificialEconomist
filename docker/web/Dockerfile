@@ -21,8 +21,8 @@ RUN npm install
 RUN npx gulp
 
 # Add metadata to the image to describe which port the container is listening on at runtime.
-EXPOSE 3823
+EXPOSE 8080
 
 # Run the specified command within the container.
-CMD [ "node", "server.js", "3823", "artificialeconomist_mongo", "27518" ]
+CMD [ "node", "server.js", "8080", "artificialeconomist_mongo", "27518" ]
 

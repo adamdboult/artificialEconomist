@@ -7,7 +7,7 @@ services:
         dockerfile: ./docker/web/Dockerfile
     restart: unless-stopped
     ports:
-      - "3823:3823"
+      - "8080:8080"
     depends_on:
       - artificialeconomist_mongo
       - artificialeconomist_tensorflow
