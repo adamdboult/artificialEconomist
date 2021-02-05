@@ -27,6 +27,13 @@ This extends the GPT-2 model by training it on economics data.
 
 # Make Jetson Nano headless
 
+temp:
+sudo systemctl isolate multi-user.target
+persistent
+sudo systemctl set-default multi-user.target
+
+OLD:
+
 https://devtalk.nvidia.com/default/topic/1049266/jetson-nano/headless-os/
 1. Make sure you have a backup
 2. Make sure you have ssh enabled (on the card image it is, but make sure...)

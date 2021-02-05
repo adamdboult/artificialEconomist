@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow-gpu:1.15.5-py3
+FROM nvcr.io/nvidia/l4t-tensorflow:r32.5.0-tf1.15-py3
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install git
