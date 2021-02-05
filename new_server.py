@@ -21,6 +21,8 @@ import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
+import tensorflow as tf
+
 if len(sys.argv) > 1:
     gpu_flag = int(sys.argv[1])
     #gpu_flag = 1
@@ -29,10 +31,10 @@ else:
 
 if gpu_flag == 0:
     print("----Running in CPU mode")
-    import tensorflow as tf
+    #import tensorflow as tf
 elif gpu_flag == 1:
     print("----Running in GPU mode")
-    import tensorflow-gpu as tf
+    #import tensorflow-gpu as tf
 else:
     print(error)
     
