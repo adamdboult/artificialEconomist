@@ -1,0 +1,33 @@
+version: "3"
+services:
+  artificialeconomist_nodejs:
+    container_name: artificialeconomist_nodejs
+    build:
+        context: ./
+        dockerfile: ./docker/web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - artificialeconomist_mongo
+      - artificialeconomist_tensorflow
+  artificialeconomist_mongo:
+    container_name: artificialeconomist_mongo
+    image: webhippie/mongodb
+    command: mongod --port 27518 --bind_ip 0.0.0.0
+    restart: unless-stopped
+    volumes:
+      - /data/db/artificialeconomist_mongo:/data/db
+    ports:
+      - '27518:27518'
+  artificialeconomist_tensorflow:
+    container_name: artificialeconomist_tensorflow
+    build:
+        context: ./
+        dockerfile: ./docker/tf/Dockerfile_jetson.gpu
+    restart: unless-stopped
+    ports:
+      - "3563:3563"
+    depends_on:
+      - artificialeconomist_mongo
+
