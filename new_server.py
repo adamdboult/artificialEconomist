@@ -9,8 +9,6 @@ import fire
 import json
 import os
 import numpy as np
-import tensorflow as tf
-#import tensorflow-gpu as tf
 
 import pymongo
 
@@ -24,17 +22,40 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 if len(sys.argv) > 1:
-    gpu_flag = sys.argv[1]
-    gpu_flag = 1
+    gpu_flag = int(sys.argv[1])
+    #gpu_flag = 1
 else:
     gpu_flag = 0
 
 if gpu_flag == 0:
     print("----Running in CPU mode")
+    import tensorflow as tf
 elif gpu_flag == 1:
     print("----Running in GPU mode")
+    import tensorflow-gpu as tf
 else:
     print(error)
+    
+if len(sys.argv) > 2:
+    mongo_address = sys.argv[2]
+else:
+    mongo_address = 'localhost'
+    
+if len(sys.argv) > 3:
+    mongo_port = int(sys.argv[3])
+else:
+    mongo_port = 27017
+
+if len(sys.argv) > 4:
+    listen_address = sys.argv[4]
+else:
+    listen_address = 'localhost'
+
+if len(sys.argv) > 5:
+    listen_port = sys.argv[5]
+else:
+    listen_port = 3563
+
 
 
 
@@ -60,7 +81,7 @@ import model, sample, encoder
 #os.chdir("./gpt-2")
 
 #mongo_client = pymongo.MongoClient('localhost', 27518)
-mongo_client = pymongo.MongoClient('artificialeconomist_mongo', 27518)
+mongo_client = pymongo.MongoClient(mongo_address, mongo_port)
 
 
 my_db = mongo_client.pymongo_test
@@ -291,8 +312,9 @@ def interact_model(
                 self.wfile.write(self._html("POST!"))
 
 
-        #def run(server_class=HTTPServer, handler_class=S, addr="localhost", port=3563):
-        def run(server_class=HTTPServer, handler_class=S, addr="artificialeconomist_tensorflow", port=3563):
+        #def run(server_class=HTTPServer, handler_class=S, addr="localhost", port=listen_port):
+        #def run(server_class=HTTPServer, handler_class=S, addr="artificialeconomist_tensorflow", port=listen_port):
+        def run(server_class=HTTPServer, handler_class=S, addr=listen_address, port=listen_port):
             server_address = (addr, port)
             httpd = server_class(server_address, handler_class)
 
@@ -309,14 +331,14 @@ def interact_model(
             "-l",
             "--listen",
             #default="localhost",
-            default="artificialeconomist_tensorflow",
+            default=listen_address,
             help="Specify the IP address on which the server listens",
         )
         parser.add_argument(
             "-p",
             "--port",
             type=int,
-            default=3563,
+            default=listen_port,
             help="Specify the port on which the server listens",
         )
         args = parser.parse_args()

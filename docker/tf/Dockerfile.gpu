@@ -13,4 +13,4 @@ RUN pip3 install pymongo==3.11.3
 
 EXPOSE 3563
 
-CMD [ "python3", "-u", "./src/new_server.py", "GPU_model"]
+CMD [ "python3", "-u", "./src/new_server.py", "1", "artificialeconomist_mongo", "27518", "artificialeconomist_tensorflow", "3563" ]

@@ -5,8 +5,8 @@
 sudo docker-compose build --no-cache
 sudo docker-compose up --detach
 
-sudo docker-compose build --file docker-compose_cpu.yml --no-cache
-sudo docker-compose up --file docker-compose_cpu.yml --detach
+sudo docker-compose --file docker-compose_cpu.yml build --no-cache
+sudo docker-compose --file docker-compose_cpu.yml up --detach
 
 sudo docker-compose build --file docker-compose_gpu.yml --no-cache
 sudo docker-compose up --file docker-compose_gpu.yml --detach
@@ -14,6 +14,7 @@ sudo docker-compose up --file docker-compose_gpu.yml --detach
 ```
 
 Can interact, eg
+
 ```bash
 sudo docker exec -it artificialeconomist_tensorflow sh
 
