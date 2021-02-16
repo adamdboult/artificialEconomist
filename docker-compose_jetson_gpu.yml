@@ -20,8 +20,6 @@ services:
       - /data/db/artificialeconomist_mongo:/data/db
     expose:
       - '27017'
-    #ports:
-    #  - '27518:27518'
   artificialeconomist_tensorflow:
     container_name: artificialeconomist_tensorflow
     build:
@@ -30,14 +28,12 @@ services:
     restart: unless-stopped
     expose:
       - '8008'
-    #ports:
-    #  - "8008:8008"
     depends_on:
       - artificialeconomist_mongo
     deploy:
       resources:
         reservations:
           devices:
-          - driver: nvidia
-            count: 1
-            capabilities: [gpu, utility]
+            - driver: nvidia
+            - count: 1
+            - capabilities: [gpu, utility]
