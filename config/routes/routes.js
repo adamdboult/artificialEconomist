@@ -22,7 +22,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 */
-module.exports=function(app, db){
+module.exports=function(app, db, tf_domain, tf_port){
     'use strict';
     //var DataSerie=require(__dirname+'/../models/data.js');
     //var rootObject={root:__dirname+'/../../public'};
@@ -119,9 +119,9 @@ module.exports=function(app, db){
         var id_and_question = id + "|" + question;
 
         
-        var pythonProcess = spawn('python3',["./runQuery.py", id_and_question]);
+        //var pythonProcess = spawn('python3',["./runQuery.py", id_and_question]);
         //console.log("aaa");
-        //var pythonProcess = spawn('wget',["-qO-", "artificialeconomist_tensorflow:3563/" + id_and_question]);
+        var pythonProcess = spawn('wget', ["-qO-", tf_domain + ":" + tf_port + "/" + id_and_question]);
         //console.log("bbb");
         //pythonProcess.stdout.setEncoding('utf-8');
         

@@ -14,8 +14,8 @@ id_and_question = sys.argv[1]
 #result = subprocess.run(["./src/interactive_conditional_samples_AB.py", "--raw_text", question, "--model_name", "myModel"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #result = subprocess.run(["./src/interactive_conditional_samples_AB.py", "--raw_text", question, "--model_name", "117M"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #print("about to run process");
-#result = subprocess.run(["wget", "-qO-", "localhost:3563/" + id_and_question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-result = subprocess.run(["wget", "-qO-", "artificialeconomist_tensorflow:3563/" + id_and_question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#result = subprocess.run(["wget", "-qO-", "localhost:8008/" + id_and_question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+result = subprocess.run(["wget", "-qO-", "artificialeconomist_tensorflow:8008/" + id_and_question], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 print(result)
 #print("Output:")
 #decoded = result.decode("UTF-8")

@@ -56,7 +56,7 @@ else:
 if len(sys.argv) > 5:
     listen_port = sys.argv[5]
 else:
-    listen_port = 3563
+    listen_port = 8008
 
 
 

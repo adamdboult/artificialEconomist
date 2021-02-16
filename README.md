@@ -1,19 +1,11 @@
 
 # Docker instructions
 
+Rename the correct compose file as docker-compose.yml then:
+
 ```bash
 sudo docker-compose build --no-cache
 sudo docker-compose up --detach
-
-sudo docker-compose --file docker-compose_cpu.yml build --no-cache
-sudo docker-compose --file docker-compose_cpu.yml up --detach
-
-sudo docker-compose build --file docker-compose_gpu.yml --no-cache
-sudo docker-compose up --file docker-compose_gpu.yml --detach
-
-sudo docker-compose build --file docker-compose_jetson_gpu.yml --no-cache
-sudo docker-compose up --file docker-compose_jetson_gpu.yml --detach
-
 ```
 
 Can interact, eg
@@ -21,7 +13,7 @@ Can interact, eg
 ```bash
 sudo docker exec -it artificialeconomist_tensorflow sh
 
-sudo docker system prune -a
+sudo docker system prune -af
 ```
 
 # Introduction

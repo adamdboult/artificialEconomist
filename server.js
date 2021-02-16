@@ -25,9 +25,23 @@ if (process.argv[4] != null) {
     mongo_port = process.argv[4];
 }
 
+var tf_domain = 'artificialeconomist_tensorflow';
+if (process.argv[5] != null) {
+    tf_domain = process.argv[5];
+}
+
+var tf_port = 8008;
+if (process.argv[6] != null) {
+    tf_port = process.argv[6];
+}
+
 console.log("HTTP port is: "   + http_port);
+
 console.log("Mongo domain is: "+ mongo_domain);
 console.log("Mongo port is: "  + mongo_port);
+
+console.log("Tensorflow domain is: "+ tf_domain);
+console.log("Tensorflow port is: "  + tf_port);
 
 ///////////
 /* Mongo */
@@ -97,7 +111,7 @@ app.use(express.static(__dirname + '/public'));// set the static files location 
 app.set('views',__dirname+'/src/pug/');
 app.set('view engine', 'pug');
 
-require(__dirname+'/config/routes/routes')(app, db);
+require(__dirname+'/config/routes/routes')(app, db, tf_domain, tf_port);
 
 // Since this is the last non-error-handling
 // middleware used, we assume 404, as nothing else
