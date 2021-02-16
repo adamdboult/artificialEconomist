@@ -96,8 +96,11 @@ post_data = {
     'author': 'Adam'
 }
 print("a")
-result = posts.insert_one(post_data)
-print('One post: {0}'.format(result.inserted_id))
+try:
+    result = posts.insert_one(post_data)
+    print('One post: {0}'.format(result.inserted_id))
+except:
+    print("Not posting. No server")
 
 
 def interact_model(
@@ -301,10 +304,13 @@ def interact_model(
                     'question': raw_text,
                     'response': final_text
                 }
-                result = posts.insert_one(post_data)
-                print('One post: {0}'.format(result.inserted_id))
-                print(result)
-                print("done")
+                try:
+                    result = posts.insert_one(post_data)
+                    print('One post: {0}'.format(result.inserted_id))
+                    print(result)
+                    print("done")
+                except:
+                    print("Not posting. No server")
 
 
 
