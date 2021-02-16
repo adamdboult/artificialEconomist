@@ -83,7 +83,9 @@ import model, sample, encoder
 #os.chdir("./gpt-2")
 
 #mongo_client = pymongo.MongoClient('localhost', 27518)
+print("before")
 mongo_client = pymongo.MongoClient(mongo_address, mongo_port)
+print("after")
 
 
 my_db = mongo_client.pymongo_test
@@ -93,6 +95,7 @@ post_data = {
     'content': 'Artificial Economist data',
     'author': 'Adam'
 }
+print("a")
 result = posts.insert_one(post_data)
 print('One post: {0}'.format(result.inserted_id))
 

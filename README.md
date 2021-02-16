@@ -16,6 +16,13 @@ sudo docker exec -it artificialeconomist_tensorflow sh
 sudo docker system prune -af
 ```
 
+Can run just
+```bash
+sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson.gpu .
+sudo docker run --detach -p 8008:8008 nhp:Dockerfile
+sudo docker run --gpus all -p 8008:8008 nhp:Dockerfile
+```
+
 # Introduction
 
 This extends the GPT-2 model by training it on economics data.
