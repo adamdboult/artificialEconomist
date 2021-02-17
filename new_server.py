@@ -338,6 +338,10 @@ def interact_model(
         #def run(server_class=HTTPServer, handler_class=S, addr="artificialeconomist_tensorflow", port=listen_port):
         def run(server_class=HTTPServer, handler_class=S, addr=listen_address, port=listen_port):
             server_address = (addr, port)
+            print("here?")
+            print(addr)
+            print(port)
+            print("done")
             httpd = server_class(server_address, handler_class)
 
             print_string = "Starting httpd server on " + str(addr) + ":" + str(port)
@@ -372,10 +376,11 @@ def interact_model(
 
 
 
+sys.argv = [sys.argv[0]]
 
-#if __name__ == '__main__':
-#    fire.Fire(interact_model)
-interact_model()
+if __name__ == '__main__':
+    fire.Fire(interact_model)
+#interact_model()
 
 
 
