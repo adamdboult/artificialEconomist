@@ -369,9 +369,9 @@ def interact_model(
 
 
 
-if __name__ == '__main__':
-    fire.Fire(interact_model)
-
+#if __name__ == '__main__':
+#    fire.Fire(interact_model)
+interact_model()
 
 
 

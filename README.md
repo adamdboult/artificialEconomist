@@ -16,6 +16,8 @@ sudo docker exec -it artificialeconomist_tensorflow sh
 sudo docker system prune -af
 ```
 
+Docker-compose on jetson nano doesn't support GPUs, so do them separately.
+
 Can run just
 ```bash
 sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson.gpu .
