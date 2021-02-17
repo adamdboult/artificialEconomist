@@ -2,7 +2,7 @@ FROM node:10
 RUN apt-get update && apt-get -y install build-essential apache2 git python3
 
 # Needed for the empty folder stuff to work
-WORKDIR /home/adam/Projects/artificialeconomist/
+WORKDIR /Projects/artificialeconomist/
 
 COPY . .
 RUN npm install && npx gulp

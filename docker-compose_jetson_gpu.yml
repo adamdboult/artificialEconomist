@@ -35,3 +35,4 @@ services:
         reservations:
           devices:
             - capabilities: ["nvidia-compute"]
+
