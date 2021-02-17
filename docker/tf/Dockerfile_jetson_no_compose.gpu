@@ -10,4 +10,4 @@ COPY econstormodel/ ./models/econstormodel/
 RUN pip3 install -r requirements.txt
 RUN pip3 install pymongo==3.11.3
 
-CMD [ "python3", "-u", "./src/new_server.py", "0", "artificialeconomist_mongo", "27017", "artificialeconomist_tensorflow", "8008" ]
+CMD [ "python3", "-u", "./src/new_server.py", "1", "artificialeconomist_mongo", "27017", "localhost", "8008" ]

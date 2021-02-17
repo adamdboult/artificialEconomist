@@ -23,6 +23,9 @@ sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson.gpu .
 sudo docker run --gpus all --detach -p 8008:8008 nhp:Dockerfile
 sudo docker run --gpus all -p 8008:8008 nhp:Dockerfile
 
+sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson.cpu .
+sudo docker run -p 8008:8008 nhp:Dockerfile
+
 sudo docker exec -it artificialeconomist_tensorflow sh
 ```
 
