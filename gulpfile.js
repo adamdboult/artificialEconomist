@@ -20,7 +20,7 @@ gulp.task('jshint', function(cb) {
 
 // Empty folders
 gulp.task('emptyDestFolders', function(cb) {
-
+    console.log(__dirname+'/public');
     del.sync([
         __dirname+'/public'
     ]);
