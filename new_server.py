@@ -175,7 +175,11 @@ def interact_model(
         config = tf.ConfigProto(
             #device_count = {'GPU': 0}
             device_count = {'GPU': 1}
+            #https://forums.developer.nvidia.com/t/tensorflow-gpu-not-working-in-nano/82171/2
         )
+        config.gpu_options.allow_growth = True
+        config.gpu_options.per_process_gpu_memory_fraction = 0.4
+
     #sess = tf.Session(config=config)
     #with tf.Session(graph=tf.Graph()) as sess:
     with tf.Session(graph=tf.Graph(), config=config) as sess:

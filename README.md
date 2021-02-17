@@ -18,11 +18,12 @@ sudo docker system prune -af
 
 Docker-compose on jetson nano doesn't support GPUs, so do them separately.
 
-Can run just
 ```bash
 sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson.gpu .
-sudo docker run --detach -p 8008:8008 nhp:Dockerfile
+sudo docker run --gpus all --detach -p 8008:8008 nhp:Dockerfile
 sudo docker run --gpus all -p 8008:8008 nhp:Dockerfile
+
+sudo docker exec -it artificialeconomist_tensorflow sh
 ```
 
 # Introduction
