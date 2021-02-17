@@ -138,9 +138,16 @@ def interact_model(
     :top_p=0.0 : Float value controlling diversity. Implements nucleus sampling,
      overriding top_k if set to a value > 0. A good setting is 0.9.
     """
-
+    print("Starting function")
+    print(batch_size)
+    print(type(batch_size))
     if batch_size is None:
         batch_size = 1
+    print(batch_size)
+    print(type(batch_size))
+    print(nsamples)
+    print(type(nsamples))
+    print(nsamples % batch_size)
     assert nsamples % batch_size == 0
     print ("here")
     this_dir = os.path.join('models')
