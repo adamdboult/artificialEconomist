@@ -6,7 +6,6 @@ Rename the correct compose file as docker-compose.yml then:
 ```bash
 sudo docker-compose build --no-cache
 sudo docker-compose up --detach
-sudo docker exec -it artificialeconomist_tensorflow sh
 ```
 
 ```bash
@@ -24,7 +23,6 @@ sudo docker exec -it artificialeconomist_nodejs sh
 sudo docker exec -it artificialeconomist_mongo sh
 ```
 
-
 # Docker instructions (no compose)
 
 Docker-compose on jetson nano (docker-compose version is pre 1.28?) doesn't support GPUs, so do them separately.
@@ -32,44 +30,18 @@ Docker-compose on jetson nano (docker-compose version is pre 1.28?) doesn't supp
 First, build the images.
 
 ```bash
-sudo docker build -t "ae:tensorflow" -f ./docker/tf/Dockerfile_jetson_no_compose.gpu .
-#sudo docker build -t "ae:tensorflow" -f ./docker/tf/Dockerfile_jetson.gpu .
+sudo docker build -t "ae:tensorflow" -f ./docker/tf/Dockerfile_jetson.gpu .
 sudo docker build -t "ae:web" -f ./docker/web/Dockerfile .
 ```
 
 ```bash
-sudo docker run --name artificialeconomist_mongo --detach -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
-
-sudo docker run --name artificialeconomist_tensorflow --gpus all --detach --expose 8008 --link artificialeconomist_mongo:artificialeconomist_mongo ae:tensorflow
-sudo docker run --name artificialeconomist_tensorflow --gpus all --detach --expose 8008 -p 8008:8008 --link artificialeconomist_mongo:artificialeconomist_mongo ae:tensorflow
-
-sudo docker run --name artificialeconomist_nodejs --detach --link artificialeconomist_tensorflow:artificialeconomist_tensorflow --link artificialeconomist_mongo:artificialeconomist_mongo -p 8080:80 ae:web
+sudo docker run --restart=always --detach --name artificialeconomist_mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
+sudo docker run --restart=always --detach --name artificialeconomist_tensorflow --gpus all --expose 8008 --link artificialeconomist_mongo:artificialeconomist_mongo ae:tensorflow
+sudo docker run --restart=always --detach --name artificialeconomist_nodejs --link artificialeconomist_tensorflow:artificialeconomist_tensorflow --link artificialeconomist_mongo:artificialeconomist_mongo -p 8080:80 ae:web
 ```
 
-Notes below
-
-
+Can test:
 ```bash
-sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson_no_compose.gpu .
-sudo docker run --gpus all --detach -p 8008:8008 nhp:Dockerfile
-sudo docker run --gpus all -p 8008:8008 nhp:Dockerfile
-
-sudo docker build -t "nhp:Dockerfile" -f ./docker/tf/Dockerfile_jetson_no_compose.cpu .
-sudo docker run --gpus all --detach -p 8008:8008 nhp:Dockerfile
-sudo docker run --gpus all -p 8008:8008 nhp:Dockerfile
-
-
-sudo docker ps
-sudo docker exec -it <ID> sh
-
-sudo docker exec -it artificialeconomist_tensorflow sh
-sudo docker exec -it artificialeconomist_mongo sh
-sudo docker exec -it artificialeconomist_nodejs sh
-
-
-#wget ', ["-qO-", tf_domain + ":" + tf_port + "/" + id_and_question]);
-wget localhost:8008/testquestion
-
 wget artificialeconomist_tensorflow:8008/testquestion
 ```
 
