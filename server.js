@@ -86,6 +86,19 @@ db.collection('posts').findOne({"id": "mjcdaxb"}, "id question resonse", functio
     console.log(doc);
 });
 
+console.log("starting dump");
+db.collection('posts').find(function(err, doc){
+    if (err) console.error("ERR" + err);
+
+    if (doc == null) {
+        console.log("None");
+    }
+
+    console.log("here");
+    console.log(doc);
+});
+console.log("finished dump");
+
 ////////////////////////
 /* Express and routes */
 ////////////////////////

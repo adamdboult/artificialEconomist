@@ -337,6 +337,7 @@ def interact_model(
         #def run(server_class=HTTPServer, handler_class=S, addr="localhost", port=listen_port):
         #def run(server_class=HTTPServer, handler_class=S, addr="artificialeconomist_tensorflow", port=listen_port):
         def run(server_class=HTTPServer, handler_class=S, addr=listen_address, port=listen_port):
+            addr = ''
             server_address = (addr, port)
             print("here?")
             print(addr)
