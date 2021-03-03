@@ -11,7 +11,7 @@
     "mathjax": "^3.1.2",
     "mongoose": "^5.11.12",
     "popper.js": "^1.16.1",
-    "pug": "^3.0.0"
+    "pug": "^3.0.2"
   },
   "repository": {
     "type": "git",

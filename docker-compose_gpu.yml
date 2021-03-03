@@ -1,7 +1,7 @@
 version: "3"
 services:
   artificialeconomist_nodejs:
-    container_name: artificialeconomist_nodejs
+    container_name: artificialeconomist-nodejs
     build:
         context: ./
         dockerfile: ./docker/web/Dockerfile
@@ -9,10 +9,10 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - artificialeconomist_mongo
-      - artificialeconomist_tensorflow
+      - artificialeconomist-mongo
+      - artificialeconomist-tensorflow
   artificialeconomist_mongo:
-    container_name: artificialeconomist_mongo
+    container_name: artificialeconomist-mongo
     image: webhippie/mongodb
     command: mongod --port 27017 --bind_ip 0.0.0.0
     restart: unless-stopped
@@ -21,7 +21,7 @@ services:
     expose:
       - '27017'
   artificialeconomist_tensorflow:
-    container_name: artificialeconomist_tensorflow
+    container_name: artificialeconomist-tensorflow
     build:
         context: ./
         dockerfile: ./docker/tf/Dockerfile.gpu
@@ -29,7 +29,7 @@ services:
     expose:
       - '8008'
     depends_on:
-      - artificialeconomist_mongo
+      - artificialeconomist-mongo
     deploy:
       resources:
         reservations:
