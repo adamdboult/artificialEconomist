@@ -1,6 +1,8 @@
 
 # Docker compose instructions
 
+Can't use compose here, see below.
+
 Rename the correct compose file as docker-compose.yml then:
 
 ```bash
@@ -18,9 +20,9 @@ sudo docker system prune -af
 Can interact, eg
 
 ```bash
-sudo docker exec -it artificialeconomist_tensorflow sh
-sudo docker exec -it artificialeconomist_nodejs sh
-sudo docker exec -it artificialeconomist_mongo sh
+sudo docker exec -it artificialeconomist-tensorflow sh
+sudo docker exec -it artificialeconomist-nodejs sh
+sudo docker exec -it artificialeconomist-mongo sh
 ```
 
 # Docker instructions (no compose)
@@ -40,9 +42,17 @@ sudo docker run --restart=always --detach --name artificialeconomist_tensorflow 
 sudo docker run --restart=always --detach --name artificialeconomist_nodejs --link artificialeconomist_tensorflow:artificialeconomist_tensorflow --link artificialeconomist_mongo:artificialeconomist_mongo -p 8080:80 ae:web
 ```
 
+```bash
+sudo docker run --restart=always --detach --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
+sudo docker run --restart=always --detach --name artificialeconomist-tensorflow --gpus all --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
+sudo docker run --restart=always --detach --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 ae:web
+```
+
+
 Can test:
 ```bash
 wget artificialeconomist_tensorflow:8008/testquestion
+wget artificialeconomist-tensorflow:8008/testquestion
 ```
 
 # Introduction

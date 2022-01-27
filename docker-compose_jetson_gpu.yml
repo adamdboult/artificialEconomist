@@ -1,6 +1,6 @@
 version: "3"
 services:
-  artificialeconomist_nodejs:
+  artificialeconomist-nodejs:
     container_name: artificialeconomist-nodejs
     build:
         context: ./
@@ -11,7 +11,7 @@ services:
     depends_on:
       - artificialeconomist-mongo
       - artificialeconomist-tensorflow
-  artificialeconomist_mongo:
+  artificialeconomist-mongo:
     container_name: artificialeconomist-mongo
     image: webhippie/mongodb
     command: mongod --port 27017 --bind_ip 0.0.0.0
@@ -20,7 +20,7 @@ services:
       - /data/db/artificialeconomist_mongo:/data/db
     expose:
       - '27017'
-  artificialeconomist_tensorflow:
+  artificialeconomist-tensorflow:
     container_name: artificialeconomist-tensorflow
     build:
         context: ./
