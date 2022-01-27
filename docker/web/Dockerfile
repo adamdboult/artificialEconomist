@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:16
 RUN apt-get update && apt-get -y install build-essential apache2 git python3 ruby-sass
 
 # Needed for the empty folder stuff to work
