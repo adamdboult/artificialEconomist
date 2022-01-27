@@ -20,3 +20,4 @@ getText/TXT*/
 getText/merged_file*
 venv/*
 econstormodel/
+.sass-cache/
