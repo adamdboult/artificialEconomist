@@ -42,6 +42,13 @@ sudo docker run --restart=always --detach --name artificialeconomist-tensorflow 
 sudo docker run --restart=always --detach --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 ae:web
 ```
 
+Can check status of containers
+
+```bash
+sudo docker ps
+sudo docker ps --all
+```
+
 Can test:
 ```bash
 wget artificialeconomist-tensorflow:8008/testquestion
