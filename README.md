@@ -17,6 +17,14 @@ sudo docker rm $(sudo docker ps -a -q)
 sudo docker system prune -af
 ```
 
+can delete old databases if interacting badly
+
+```bash
+sudo rm -rf /data/db/artificialeconomist_mongo
+
+```
+
+
 Can interact, eg
 
 ```bash
@@ -36,17 +44,49 @@ sudo docker build -t "ae:tensorflow" -f ./docker/tf/Dockerfile_jetson.gpu .
 sudo docker build -t "ae:web" -f ./docker/web/Dockerfile .
 ```
 
+docker run is docker create and docker start
+
 ```bash
 sudo docker run --restart=always --detach --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
+sudo docker run --restart=always --detach --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 mongo:4 mongod --port 27017 --bind_ip 0.0.0.0
+
 sudo docker run --restart=always --detach --name artificialeconomist-tensorflow --gpus all --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
+sudo docker run --restart=always --detach --name artificialeconomist-tensorflow --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
+
 sudo docker run --restart=always --detach --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 ae:web
 ```
+
+
+```bash
+sudo docker create --restart=always --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
+sudo docker create --restart=always --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 mongo:4 mongod --port 27017 --bind_ip 0.0.0.0
+
+sudo docker create --restart=always --name artificialeconomist-tensorflow --gpus all --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
+sudo docker create --restart=always --name artificialeconomist-tensorflow --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
+
+sudo docker create --restart=always --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 ae:web
+```
+
+
+```bash
+sudo docker start artificialeconomist-mongo
+sudo docker start artificialeconomist-tensorflow
+sudo docker start artificialeconomist-nodejs
+```
+
 
 Can check status of containers
 
 ```bash
 sudo docker ps
 sudo docker ps --all
+```
+
+Can restart?
+
+
+```bash
+sudo docker start
 ```
 
 Can test:

@@ -1,7 +1,12 @@
 FROM tensorflow/tensorflow:1.15.5-py3
 RUN apt-get update && apt-get -y install git
 
-RUN git clone https://github.com/openai/gpt-2
+RUN \
+git clone https://github.com/openai/gpt-2 && \
+cd gpt-2 && \
+git checkout a74da5d && \
+cd ..
+
 WORKDIR ./gpt-2
 
 COPY new_server.py ./src/
