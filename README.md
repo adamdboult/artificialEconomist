@@ -10,29 +10,6 @@ sudo docker-compose build --no-cache
 sudo docker-compose up --detach
 ```
 
-```bash
-sudo docker kill $(sudo docker ps -q)
-sudo docker rm $(sudo docker ps -a -q)
-
-sudo docker system prune -af
-```
-
-can delete old databases if interacting badly
-
-```bash
-sudo rm -rf /data/db/artificialeconomist_mongo
-
-```
-
-
-Can interact, eg
-
-```bash
-sudo docker exec -it artificialeconomist-tensorflow sh
-sudo docker exec -it artificialeconomist-nodejs sh
-sudo docker exec -it artificialeconomist-mongo sh
-```
-
 # Docker instructions (no compose)
 
 Docker-compose on jetson nano (docker-compose version is pre 1.28?) doesn't support GPUs, so do them separately.
@@ -40,31 +17,29 @@ Docker-compose on jetson nano (docker-compose version is pre 1.28?) doesn't supp
 First, build the images.
 
 ```bash
-sudo docker build -t "ae:tensorflow" -f ./docker/tf/Dockerfile_jetson.gpu .
-sudo docker build -t "ae:web" -f ./docker/web/Dockerfile .
+sudo docker build -t "artificialeconomist-tensorflow" -f ./docker/tf/Dockerfile_jetson.gpu .
+sudo docker build -t "artificialeconomist-nodejs" -f ./docker/web/Dockerfile .
 ```
 
 docker run is docker create and docker start
 
 ```bash
-sudo docker run --restart=always --detach --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
 sudo docker run --restart=always --detach --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 mongo:4 mongod --port 27017 --bind_ip 0.0.0.0
 
 sudo docker run --restart=always --detach --name artificialeconomist-tensorflow --gpus all --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
 sudo docker run --restart=always --detach --name artificialeconomist-tensorflow --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
 
-sudo docker run --restart=always --detach --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 ae:web
+sudo docker run --restart=always --detach --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 artificialeconomist-nodejs
 ```
 
 
 ```bash
-sudo docker create --restart=always --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 webhippie/mongodb mongod --port 27017 --bind_ip 0.0.0.0
 sudo docker create --restart=always --name artificialeconomist-mongo -v /data/db/artificialeconomist_mongo:/data/db --expose 27017 mongo:4 mongod --port 27017 --bind_ip 0.0.0.0
 
-sudo docker create --restart=always --name artificialeconomist-tensorflow --gpus all --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
-sudo docker create --restart=always --name artificialeconomist-tensorflow --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo ae:tensorflow
+sudo docker create --restart=always --name artificialeconomist-tensorflow --gpus all --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo artificialeconomist-tensorflow
+sudo docker create --restart=always --name artificialeconomist-tensorflow --expose 8008 --link artificialeconomist-mongo:artificialeconomist-mongo artificialeconomist-tensorflow
 
-sudo docker create --restart=always --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 ae:web
+sudo docker create --restart=always --name artificialeconomist-nodejs --link artificialeconomist-tensorflow:artificialeconomist-tensorflow --link artificialeconomist-mongo:artificialeconomist-mongo -p 8080:80 artificialeconomist-nodejs
 ```
 
 
