@@ -1,4 +1,11 @@
 
+# Setting up GPU on docker
+
+https://nvidia.github.io/nvidia-container-runtime/
+
+Then
+https://docs.docker.com/config/containers/resource_constraints/#gpu
+
 # Docker compose instructions
 
 Can't use compose here, see below.

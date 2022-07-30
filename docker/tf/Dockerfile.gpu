@@ -1,4 +1,5 @@
-FROM tensorflow/tensorflow:1.15.5-gpu-py3
+FROM tensorflow/tensorflow-gpu:1.15.5-gpu-py3
+RUN rm /etc/apt/sources.list.d/cuda.list /etc/apt/sources.list.d/nvidia-ml.list
 RUN apt-get update && apt-get -y install git
 
 RUN \

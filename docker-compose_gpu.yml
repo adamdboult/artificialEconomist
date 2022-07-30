@@ -34,5 +34,7 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: ["nvidia-compute"]
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
