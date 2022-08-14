@@ -1,5 +1,6 @@
-FROM tensorflow/tensorflow:1.15.5-py3
-RUN rm /etc/apt/sources.list.d/cuda.list /etc/apt/sources.list.d/nvidia-ml.list
+#FROM tensorflow/tensorflow:1.15.5-py3
+FROM tensorflow/tensorflow:1.5.1-py3	# Those after 5.1 require AVX. not on old CPU.
+#RUN rm /etc/apt/sources.list.d/cuda.list /etc/apt/sources.list.d/nvidia-ml.list
 RUN apt-get update && apt-get -y install git
 
 RUN \
