@@ -5,6 +5,7 @@ RUN \
 git clone https://github.com/openai/gpt-2 && \
 cd gpt-2 && \
 git checkout a74da5d && \
+rm -rf .gitignore .gitattributes .git/
 cd ..
 
 WORKDIR ./gpt-2
