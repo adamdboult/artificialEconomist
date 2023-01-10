@@ -26,3 +26,5 @@ econstormodel/
 
 .vscode/
 
+
+docker-compose.yaml	# because there are many.
