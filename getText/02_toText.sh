@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ######################
 # CONVERT PDF TO TXT #
 ######################

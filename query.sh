@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 import sys
 
 cd ./gpt-2
