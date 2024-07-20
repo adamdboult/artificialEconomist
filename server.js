@@ -120,7 +120,8 @@ app.use(express.urlencoded({extended : false}));
 //ROUTES
 app.use(express.static(__dirname + '/public'));// set the static files location /public/img will be /img for users
 
-//app.locals.pretty=true;
+//pretty makes the html not just 1 line, and so is readable
+app.locals.pretty=true;
 app.set('views',__dirname+'/src/pug/');
 app.set('view engine', 'pug');
 
