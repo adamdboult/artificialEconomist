@@ -38,8 +38,8 @@ scripts:
       
 styles:
 	mkdir ./public/css/
-	#cp -R./src/styles/**/*.css ./public/css/
-	sass ./src/styles/core.scss:./public/css/core.css
+	cp -R./src/styles/**/*.css ./public/css/
+	#sass ./src/styles/core.scss:./public/css/core.css
     
     
 
