@@ -1,7 +1,8 @@
 FROM node:16
 RUN apt-get update && apt-get -y install \
   build-essential                        \
-  python3                                #\
+  python3                                
+#RUN apt-get -y install \
 #  apache2                                \
 #  git                                    \
 #  ruby-sass
@@ -10,5 +11,5 @@ RUN apt-get update && apt-get -y install \
 WORKDIR /Projects/artificialeconomist/
 
 COPY . .
-RUN npm ci && make
+RUN npm install --package-lock-only && npm ci && make
 CMD [ "node", "server.js", "80", "artificialeconomist-mongo", "27017", "artificialeconomist-tensorflow", "8008" ]
