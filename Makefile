@@ -38,7 +38,7 @@ scripts:
       
 styles:
 	mkdir ./public/css/
-	cp -R./src/styles/**/*.css ./public/css/
+	cp -R./src/styles/**/*.css ./public/css/ || true
 	#sass ./src/styles/core.scss:./public/css/core.css
     
     

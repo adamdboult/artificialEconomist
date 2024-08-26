@@ -13,6 +13,9 @@ git checkout a74da5d && \
 rm -rf .gitignore .gitattributes .git/ && \
 cd ..
 
+COPY requirements.txt ./
+RUN pip3 install -r requirements.txt
+
 WORKDIR ./gpt-2
 
 COPY new_server.py ./src/
