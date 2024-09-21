@@ -11,5 +11,5 @@ RUN apt-get update && apt-get -y install \
 WORKDIR /Projects/artificialeconomist/
 
 COPY . .
-RUN npm install --package-lock-only && npm ci && make
+RUN npm ci && make
 CMD [ "node", "server.js", "80", "artificialeconomist-mongo", "27017", "artificialeconomist-tensorflow", "8008" ]
