@@ -14,13 +14,13 @@ rm -rf .gitignore .gitattributes .git/ && \
 cd ..
 
 COPY requirements.txt ./
-RUN pip3 install -r requirements.txt
+RUN pip3 install --upgrade pip && pip3 install -r requirements.txt
 
 WORKDIR ./gpt-2
 
 COPY new_server.py ./src/
 COPY econstormodel/ ./models/econstormodel/
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --upgrade pip && pip3 install -r requirements.txt
 
 CMD [ "python3", "-u", "./src/new_server.py", "0", "artificialeconomist-mongo", "27017", "artificialeconomist-tensorflow", "8008" ]
