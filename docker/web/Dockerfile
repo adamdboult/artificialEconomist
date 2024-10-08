@@ -1,11 +1,7 @@
 FROM node:22
 RUN apt-get update && apt-get -y install \
   build-essential                        \
-  python3                                
-#RUN apt-get -y install \
-#  apache2                                \
-#  git                                    \
-#  ruby-sass
+  python3-full
 
 # Needed for the empty folder stuff to work
 WORKDIR /Projects/artificialeconomist/
