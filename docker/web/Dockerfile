@@ -1,7 +1,9 @@
 FROM node:22
-RUN apt-get update && apt-get -y install \
-  build-essential                        \
-  python3-full
+RUN apt-get update && apt-get install --no-install-recommends --yes \
+  build-essential                                                   \
+  python3-full                                                      \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Needed for the empty folder stuff to work
 WORKDIR /Projects/artificialeconomist/
