@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install --no-install-recommends --yes \
   && rm -rf /var/lib/apt/lists/*
 
 # Needed for the empty folder stuff to work
-WORKDIR /Projects/artificialeconomist/
+WORKDIR /app
 
 # Copy package.json and package-lock.json to leverage Docker cache
 COPY package.json package-lock.json ./
