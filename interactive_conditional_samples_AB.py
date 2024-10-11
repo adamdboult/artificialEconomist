@@ -8,16 +8,17 @@ import model, sample, encoder
 
 import time
 
+
 def interact_model(
-    model_name  = 'myModel',
-    seed        = None,
-    nsamples    = 1,
-    batch_size  = 1,
-    length      = None,
-    temperature = 1,
-    top_k       = 40,
-    top_p       = 0.9,
-    raw_text    = ""
+    model_name="myModel",
+    seed=None,
+    nsamples=1,
+    batch_size=1,
+    length=None,
+    temperature=1,
+    top_k=40,
+    top_p=0.9,
+    raw_text="",
 ):
     """
     Interactively run the model
@@ -43,7 +44,7 @@ def interact_model(
     start = time.time()
 
     hparams = model.default_hparams()
-    with open(os.path.join('models', model_name, 'hparams.json')) as f:
+    with open(os.path.join("models", model_name, "hparams.json")) as f:
         hparams.override_from_dict(json.load(f))
 
     if batch_size is None:
@@ -53,7 +54,9 @@ def interact_model(
     if length is None:
         length = hparams.n_ctx // 2
     elif length > hparams.n_ctx:
-        raise ValueError("Can't get samples longer than window size: %s" % hparams.n_ctx)
+        raise ValueError(
+            "Can't get samples longer than window size: %s" % hparams.n_ctx
+        )
 
     enc = encoder.get_encoder(model_name)
 
@@ -65,33 +68,33 @@ def interact_model(
         tf.set_random_seed(seed)
 
         output = sample.sample_sequence(
-            hparams     = hparams,
-            length      = length,
-            context     = context,
-            batch_size  = batch_size,
-            temperature = temperature,
-            top_k       = top_k,
-            top_p       = top_p
+            hparams=hparams,
+            length=length,
+            context=context,
+            batch_size=batch_size,
+            temperature=temperature,
+            top_k=top_k,
+            top_p=top_p,
         )
 
         saver = tf.train.Saver()
-        ckpt = tf.train.latest_checkpoint(os.path.join('models', model_name))
+        ckpt = tf.train.latest_checkpoint(os.path.join("models", model_name))
         saver.restore(sess, ckpt)
 
-        #print(time.time()-start)
+        # print(time.time()-start)
 
         context_tokens = enc.encode(raw_text)
         generated = 0
         for _ in range(nsamples // batch_size):
-            out = sess.run(output, feed_dict={
-                context: [context_tokens for _ in range(batch_size)]
-            })[:, len(context_tokens):]
+            out = sess.run(
+                output, feed_dict={context: [context_tokens for _ in range(batch_size)]}
+            )[:, len(context_tokens) :]
             for i in range(batch_size):
                 generated += 1
                 text = enc.decode(out[i])
                 print(text)
-                #print (time.time()-start)
+                # print (time.time()-start)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     fire.Fire(interact_model)
-
