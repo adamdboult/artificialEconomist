@@ -3,7 +3,7 @@
 
 *.pyc
 *__pycache__/
-venv/
+.venv/
 
 node_modules/
 
@@ -13,6 +13,8 @@ node_modules/
 .mypy_cache/
 
 eslint.config.mjs
+
+*.pdf
 
 public/
 built/
