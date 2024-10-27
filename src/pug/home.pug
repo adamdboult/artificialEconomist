@@ -5,14 +5,12 @@ block content
 	div.jumbotron
 		h1.bs-docs-featurette-title Artificial Economist
 		p An artificial economist trained on publicly available economics.
-		p Please allow a few minutes for me to respond. I live on a modest Nvidia Jetson Nano.
+		p Please allow a few minutes for me to respond. I live on a modest machine.
 		p This model is based on GPT-2 (117M).
-		//p Right now this is just the base GPT-2 model, and has not been retrained on economics data. Check back later for that!
 	form
 		div.form-group
 			label(for="question") What is your question?
 			textarea.form-control(id="question" rows=3)
-		//input(type="text" name="question" id="question")
 		button.btn.btn-primary(id="submitButton" type="button") Ask question	
 		button.btn.btn-default(id="waitButton" type="button") Please wait
 	br
@@ -21,12 +19,6 @@ block content
 		div.card-body
 			h4.class-title(id = "questionResponseHeader") 
 			p.class-text(id = "questionResponse") 
-	//div.panel.panel-default
-	//	div.panel-heading
-	//		h1(id="questionResponseHeader") Response
-	//	div.panel-body
-	//		p(id="questionResponse")
-	//p(id="demo")
 	script
 		| function waitForStatus(id) {
 		| 	var count = 0;
