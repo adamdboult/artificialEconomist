@@ -4,25 +4,26 @@
 ##########
 
 .PHONY: all
-.PHONY: empty_dest
 .PHONY: favicon
 .PHONY: packages
 .PHONY: scripts
 .PHONY: styles
+.PHONY: clean
+.PHONY: test
 
 
 ##########
 # JSHINT #
 ##########
 
-all: empty_dest favicon packages scripts styles
+all: clean favicon packages scripts styles
 
 #jshint:
 #    jshint ./server.js
 #    jshint ./config/**/*.js
 #    jshint ./src/**/*.js
     
-empty_dest:
+clean:
 	rm -rf ./built/
 	rm -rf ./public/
 	mkdir ./built/
