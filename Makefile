@@ -9,7 +9,6 @@
 .PHONY: scripts
 .PHONY: styles
 .PHONY: clean
-.PHONY: test
 
 
 ##########
