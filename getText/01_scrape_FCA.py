@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
+
+"""
+Hi
+"""
 ##########
 # IMPORT #
 ##########
 
+import os
+import shutil
+import urllib.request
+
 import requests
 from bs4 import BeautifulSoup
-import shutil
 
 
-import os
 
 bs = BeautifulSoup
 
-import urllib.request
 
 ######################
 # GET URLS TO SCRAPE #

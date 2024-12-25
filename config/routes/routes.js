@@ -42,11 +42,12 @@ module.exports = function (app, db, tf_domain, tf_port) {
   app.post("/submit_question", function (req, res) {
     var question = Object.keys(req.body)[0];
     console.log("Got question: " + question);
-    if (typeof question == undefined) {
+    if (typeof question == "undefined") {
       question = "";
     }
     // Remove non-ascii
-    question = question.replace(/[^\x00-\x7F]/g, "");
+    //question = question.replace(/[^\x00-\x7F]/g, ""); # older version, eslint complains
+    question = question.replace(/[^\x20-\x7E]/g, ""); // Removes all non-printable ASCII
 
     // Remove leading and trailing whitespace
     question = question.trim();

@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
+"""
+Hi
+"""
 ##########
 # IMPORT #
 ##########
 
-import requests
-from bs4 import BeautifulSoup
 import shutil
+import os
+import urllib.request
 
 import string
-
-import os
-
 import re
+
+import requests
+from bs4 import BeautifulSoup
+
 
 bs = BeautifulSoup
 
-import urllib.request
 
 ######################
 # GET FILES TO CLEAN #

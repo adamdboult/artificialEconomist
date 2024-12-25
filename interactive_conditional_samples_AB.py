@@ -1,12 +1,12 @@
-import fire
 import json
 import os
+import time
 import numpy as np
 import tensorflow as tf
+import fire
 
 import model, sample, encoder
 
-import time
 
 
 def interact_model(
