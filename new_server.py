@@ -1,17 +1,20 @@
+"""
+Hi
+"""
 import sys
 
-
-import fire
 import json
 import os
-import numpy as np
-
-import pymongo
 
 from urllib.parse import unquote
+import random
+#import numpy as np
 
-# import http.server
-# import socketserver
+import fire
+import pymongo
+
+#import http.server
+#import socketserver
 
 import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -180,7 +183,8 @@ def interact_model(
     with tf.Session(graph=tf.Graph(), config=config) as sess:
         print("!!!4")
         context = tf.placeholder(tf.int32, [batch_size, None])
-        np.random.seed(seed)
+        # np.random.seed(seed)
+        random.seed(seed)
         tf.set_random_seed(seed)
         output = sample.sample_sequence(
             hparams=hparams,

@@ -12,7 +12,6 @@ WORKDIR /app
 
 # Note these are *my* requirements
 COPY requirements.txt .
-#RUN pip3 install --no-cache-dir --upgrade pip && pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install --disable-pip-version-check --no-cache-dir -r requirements.txt
 
 RUN git clone https://github.com/openai/gpt-2
@@ -24,7 +23,6 @@ COPY new_server.py ./src/
 COPY econstormodel/ ./models/econstormodel/
 
 # Note these are *gpt2* requirements (WORKDIR changed)
-#RUN pip3 install --no-cache-dir --upgrade pip && pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install --disable-pip-version-check --no-cache-dir -r requirements.txt
 
 CMD [ "python3", "-u", "./src/new_server.py", "0", "artificialeconomist-mongo", "27017", "artificialeconomist-tensorflow", "8008" ]

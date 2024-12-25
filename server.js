@@ -136,7 +136,7 @@ require(__dirname + "/config/routes/routes")(app, db, tf_domain, tf_port);
 // Since this is the last non-error-handling
 // middleware used, we assume 404, as nothing else
 // responded.
-app.use(function (req, res, next) {
+app.use(function (req, res) {
   res.status(404);
 
   // respond with html page
