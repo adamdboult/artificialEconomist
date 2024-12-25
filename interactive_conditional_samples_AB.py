@@ -8,7 +8,6 @@ import fire
 import model, sample, encoder
 
 
-
 def interact_model(
     model_name="myModel",
     seed=None,

@@ -1,6 +1,7 @@
 """
 Hi
 """
+
 import sys
 
 import json
@@ -8,13 +9,14 @@ import os
 
 from urllib.parse import unquote
 import random
-#import numpy as np
+
+# import numpy as np
 
 import fire
 import pymongo
 
-#import http.server
-#import socketserver
+# import http.server
+# import socketserver
 
 import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
