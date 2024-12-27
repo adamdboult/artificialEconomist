@@ -1,6 +1,3 @@
-"use strict";
-/*jshint node:true */
-
 // Dependencies
 var express = require("express");
 var http = require("http");

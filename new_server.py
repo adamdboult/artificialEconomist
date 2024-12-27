@@ -6,21 +6,25 @@ import sys
 
 import json
 import os
+import argparse
+
+import re
 
 from urllib.parse import unquote
 import random
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # import numpy as np
 
 import fire
 import pymongo
+from pymongo.errors import ServerSelectionTimeoutError
 
 # import http.server
 # import socketserver
 
-import argparse
-from http.server import HTTPServer, BaseHTTPRequestHandler
 
+import model, sample, encoder
 
 import tensorflow as tf
 
@@ -37,7 +41,7 @@ elif gpu_flag == 1:
     print("----Running in GPU mode")
     # import tensorflow-gpu as tf
 else:
-    print(error)
+    raise ValueError("Unexpected value for gpu_flag")
 
 if len(sys.argv) > 2:
     mongo_address = sys.argv[2]
@@ -63,9 +67,6 @@ else:
 # sys.path.insert(1, '/home/adam/Projects/artificialEconomist/gpt-2/src')
 
 
-import model, sample, encoder
-
-
 # import os
 # file_path = os.path.dirname(os.path.abspath(__file__))
 # os.chdir(file_path)
@@ -88,17 +89,30 @@ print("after")
 
 my_db = mongo_client.pymongo_test
 posts = my_db.posts
-post_data = {
+post_data_test = {
     "title": "Python and MongoDB",
     "content": "Artificial Economist data",
     "author": "Adam",
 }
 print("a")
 try:
-    result = posts.insert_one(post_data)
-    print("One post: {0}".format(result.inserted_id))
-except:
+    result_test = posts.insert_one(post_data_test)
+    # print("One post: {0}".format(result.inserted_id))
+    print(f"One post: {result_test.inserted_id}")
+    print(result_test)
+    print("done")
+except ServerSelectionTimeoutError:
     print("Not posting. No server")
+# except Exception as e:
+#    # Catch other exceptions and log them
+#    print(f"An unexpected error occurred: {e}")
+# result_test = posts.insert_one(post_data_test)
+# print(f"One post: {result_test.inserted_id}")
+# try:
+#    result = posts.insert_one(post_data_test)
+#    print(f"One post: {result.inserted_id}")
+# except:
+#    print("Not posting. No server")
 
 
 def interact_model(
@@ -114,7 +128,7 @@ def interact_model(
     # top_k=0,
     top_p=0.9,
     # top_p=0.0,
-    raw_text="t",
+    # raw_text="t",
 ):
     """
     Interactively run the model
@@ -146,22 +160,27 @@ def interact_model(
     print(nsamples)
     print(type(nsamples))
     print(nsamples % batch_size)
-    assert nsamples % batch_size == 0
+
+    if nsamples % batch_size != 0:
+        raise ValueError(
+            f"nsamples ({nsamples}) must be a multiple of batch_size ({batch_size})."
+        )
+    # assert nsamples % batch_size == 0
     print("here")
     this_dir = os.path.join("models")
     print(this_dir)
     print(os.getcwd())
     enc = encoder.get_encoder(model_name, "./models")
     hparams = model.default_hparams()
-    with open(os.path.join("models", model_name, "hparams.json")) as f:
+    with open(
+        os.path.join("models", model_name, "hparams.json"), encoding="utf-8"
+    ) as f:
         hparams.override_from_dict(json.load(f))
     print("step 2")
     if length is None:
         length = hparams.n_ctx // 2
     elif length > hparams.n_ctx:
-        raise ValueError(
-            "Can't get samples longer than window size: %s" % hparams.n_ctx
-        )
+        raise ValueError(f"Can't get samples longer than window size: {hparams.n_ctx}")
     print("!!!3")
 
     # Keep this as 0 to force CPU.
@@ -206,6 +225,10 @@ def interact_model(
         saver.restore(sess, ckpt)
 
         class S(BaseHTTPRequestHandler):
+            """
+            Documentation todo
+            """
+
             def _set_headers(self):
                 self.send_response(200)
                 # self.send_header("Content-type", "text/html")
@@ -213,7 +236,8 @@ def interact_model(
                 self.end_headers()
 
             def _html(self, message):
-                """This just generates an HTML document that includes `message`
+                """
+                This just generates an HTML document that includes `message`
                 in the body. Override, or re-write this do do more interesting stuff.
                 """
                 new_content_string = (
@@ -224,6 +248,9 @@ def interact_model(
                 return content.encode("utf8")  # NOTE: must return a bytes object!
 
             def do_GET(self):
+                """
+                Documentation
+                """
                 self._set_headers()
 
                 id_and_question = unquote(self.path[1:])
@@ -240,7 +267,7 @@ def interact_model(
                 print(raw_text)
 
                 context_tokens = enc.encode(raw_text)
-                generated = 0
+                # generated = 0
                 # print ("!!!7")
                 # for _ in range(nsamples // batch_size):
                 #    print ("!!!8")
@@ -293,19 +320,24 @@ def interact_model(
 
                 final_text = ""
 
-                for i in range(len(response_list)):
-                    response_list[i] = response_list[i].replace("\n", " ")
-                    response_list[i] = response_list[i].replace("\t", " ")
-                    response_list[i] = response_list[i].replace("\s", " ")
+                for item in response_list:
+                    item = item.replace("\n", " ")
+                    item = item.replace("\t", " ")
+                    # item = item.replace("\s", " ")
+                    item = re.sub(r"\s", " ", item)  # Replace all whitespace with space
+                    item = re.sub(
+                        r" {2,}", " ", item
+                    )  # Replace multiple spaces with a single space
+                    item = item + "."
+                    item = item.replace("..", ".")
+                    # item = item.replace("  ", " ")
+                    # item = item.replace("  ", " ")
+                    # item = item.replace("  ", " ")
+                    item = item.replace(" .", ".")
+                    item = item.strip()  # Remove trailing and leading whitespace
 
-                    response_list[i] = response_list[i] + "."
-                    response_list[i] = response_list[i].replace("..", ".")
-                    response_list[i] = response_list[i].replace("  ", " ")
-                    response_list[i] = response_list[i].replace("  ", " ")
-                    response_list[i] = response_list[i].replace("  ", " ")
-                    response_list[i] = response_list[i].replace(" .", ".")
+                    final_text = final_text + item + "\n\n"
 
-                    final_text = final_text + response_list[i] + "\n\n"
                 print("Final text is:")
                 print(final_text)
                 # self.wfile.write(self._html("hi!"))
@@ -318,17 +350,26 @@ def interact_model(
                 }
                 try:
                     result = posts.insert_one(post_data)
-                    print("One post: {0}".format(result.inserted_id))
+                    # print("One post: {0}".format(result.inserted_id))
+                    print(f"One post: {result.inserted_id}")
                     print(result)
                     print("done")
-                except:
+                except ServerSelectionTimeoutError:
                     print("Not posting. No server")
+                # except Exception as e:
+                #    # Catch other exceptions and log them
+                #    print(f"An unexpected error occurred: {e}")
 
             def do_HEAD(self):
+                """
+                Documentation
+                """
                 self._set_headers()
 
             def do_POST(self):
-                # Doesn't do anything with posted data
+                """
+                Doesn't do anything with posted data
+                """
                 self._set_headers()
                 self.wfile.write(self._html("POST!"))
 
