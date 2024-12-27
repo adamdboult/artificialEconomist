@@ -1,17 +1,27 @@
 .PHONY: all
+.PHONY: all_except_get_text
+.PHONY: get_text
 .PHONY: favicon
 .PHONY: packages
 .PHONY: scripts
 .PHONY: styles
 .PHONY: clean
 
-all: clean favicon packages scripts styles
+all_except_get_text: clean favicon packages scripts styles
+
+all: clean get_text favicon packages scripts styles
 
 clean:
 	rm -rf ./built/
 	rm -rf ./public/
 	mkdir ./built/
 	mkdir ./public/
+
+get_text:
+	python getText/scrape.py
+	./getText/toText.sh
+	python getText/clean.py
+	./getText/merge.sh
 
 favicon:
 	cp ./src/img/compiled/* ./public/

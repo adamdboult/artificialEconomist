@@ -1,8 +1,6 @@
 var spawn = require("child_process").spawn;
 
 module.exports = function (app, db, tf_domain, tf_port) {
-  "use strict";
-
   // STATIC
   app.get("/", function (req, res) {
     //res.redirect('/predict');
