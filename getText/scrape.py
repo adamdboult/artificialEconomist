@@ -18,61 +18,74 @@ from bs4 import BeautifulSoup
 # GET URLS TO SCRAPE: Econstor #
 ################################
 
-####
-# Pre
-####
-pre_urls_econstor = [
-    "https://www.econstor.eu/browse?type=doctype&sort_by=1&order=DESC&rpp=100&etal=-1&value=Working+Paper"
-]
 
-urls_econstor = []
+def get_second_link_list_econstor():
+    """
+    Documentation
+    """
+    ####
+    # Pre
+    ####
+    pre_urls_econstor = [
+        "https://www.econstor.eu/browse?type=doctype&sort_by=1&order=DESC&rpp=100&etal=-1&value=Working+Paper"
+    ]
 
-for pre_url in pre_urls_econstor:
-    for page in range(1, 100):
-        start = ((page - 1) * 100) + 0
-        new_url = pre_url + "&offset=" + str(start)
-        urls_econstor.append(new_url)
+    urls_econstor = []
 
-####
-# Get list of actual URLs
-####
-second_link_list_econstor = []
+    for pre_url in pre_urls_econstor:
+        for page in range(1, 100):
+            start = ((page - 1) * 100) + 0
+            new_url = pre_url + "&offset=" + str(start)
+            urls_econstor.append(new_url)
 
-for url in urls_econstor:
-    response = requests.get(url, stream=True, timeout=10)
+    ####
+    # Get list of actual URLs
+    ####
+    second_link_list_econstor = []
 
-    soup = BeautifulSoup(response.text, "lxml")
-    for link in soup.find_all("a"):  # Finds all links
-        if "/handle" in str(link):  # If the link ends in .pdf
-            linkname = "https://www.econstor.eu" + link.get("href")
-            second_link_list_econstor.append(linkname)
+    for url in urls_econstor:
+        response = requests.get(url, stream=True, timeout=10)
+
+        soup = BeautifulSoup(response.text, "lxml")
+        for link in soup.find_all("a"):  # Finds all links
+            if "/handle" in str(link):  # If the link ends in .pdf
+                linkname = "https://www.econstor.eu" + link.get("href")
+                second_link_list_econstor.append(linkname)
+
+    return second_link_list_econstor
+
 
 ###########################
 # GET URLS TO SCRAPE: FCA #
 ###########################
-pre_urls_fca = [
-    # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-policy%20statements",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-feedback%20statements",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
-    # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-finalised%20guidance",
-    # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-calls%20for%20input",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-consultation%20papers",
-    "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-guidance%20consultations",
-    # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-newsletters",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-multi-firm%20reviews",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
-    "https://www.fca.org.uk/publications/search-results?np_category=research-research",
-]
+def get_second_link_list_fca():
+    """
+    Documentation
+    """
+    pre_urls_fca = [
+        # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-policy%20statements",
+        "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-feedback%20statements",
+        "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-discussion%20papers",
+        # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-finalised%20guidance",
+        # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-calls%20for%20input",
+        "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-consultation%20papers",
+        "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-guidance%20consultations",
+        # "https://www.fca.org.uk/publications/search-results?np_category=policy%20and%20guidance-newsletters",
+        "https://www.fca.org.uk/publications/search-results?np_category=research-market%20studies",
+        "https://www.fca.org.uk/publications/search-results?np_category=research-thematic%20reviews",
+        "https://www.fca.org.uk/publications/search-results?np_category=research-multi-firm%20reviews",
+        "https://www.fca.org.uk/publications/search-results?np_category=research-occasional%20papers",
+        "https://www.fca.org.uk/publications/search-results?np_category=research-research",
+    ]
 
-second_link_list_fca = []
+    second_link_list_fca = []
 
-for pre_url in pre_urls_fca:
-    for page in range(1, 50):
-        start = ((page - 1) * 10) + 1
-        new_url = pre_url + "&start=" + str(start)
-        second_link_list_fca.append(new_url)
+    for pre_url in pre_urls_fca:
+        for page in range(1, 50):
+            start = ((page - 1) * 10) + 1
+            new_url = pre_url + "&start=" + str(start)
+            second_link_list_fca.append(new_url)
+    return second_link_list_fca
 
 
 ########################
@@ -94,9 +107,6 @@ def get_link_list(second_link_list):
                     link_list.append(link.get("href"))
         return link_list
 
-
-link_list_fca = get_link_list(second_link_list_fca)
-link_list_econstor = get_link_list(second_link_list_econstor)
 
 #################
 # DOWNLOAD PDFs #
@@ -148,5 +158,19 @@ def download_pdfs(link_list, run_specific_folder):
             file.write(content)
 
 
-download_pdfs(link_list_fca, run_specific_folder="PDF_FCA")
-download_pdfs(link_list_econstor, run_specific_folder="PDF_econstor")
+def main():
+    """
+    Documentation
+    """
+    second_link_list_fca = get_second_link_list_fca()
+    second_link_list_econstor = get_second_link_list_econstor()
+
+    link_list_fca = get_link_list(second_link_list_fca)
+    link_list_econstor = get_link_list(second_link_list_econstor)
+
+    download_pdfs(link_list_fca, run_specific_folder="PDF_FCA")
+    download_pdfs(link_list_econstor, run_specific_folder="PDF_econstor")
+
+
+if __name__ == "__main__":
+    main()
