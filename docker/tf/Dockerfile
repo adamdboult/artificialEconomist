@@ -1,5 +1,6 @@
 #FROM tensorflow/tensorflow:1.15.5-py3
 FROM python:3.6.9
+#FROM python:3.7
 #RUN rm /etc/apt/sources.list.d/cuda.list /etc/apt/sources.list.d/nvidia-ml.list
 
 #RUN apt-get update && apt-get install --no-install-recommends --yes \
