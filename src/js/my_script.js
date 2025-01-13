@@ -17,8 +17,8 @@ function waitForStatus(id) {
       },
       body: formData.toString(),
     })
-      .then(response => response.text())
-      .then(result => {
+      .then((response) => response.text())
+      .then((result) => {
         console.log("Result from /check_answer:", result);
 
         if (result !== "BBnoresponse") {
@@ -27,14 +27,15 @@ function waitForStatus(id) {
 
           // Update the UI
           document.getElementById("questionResponse").innerHTML = newResult;
-          document.getElementById("submitButton").style.display = "inline-block";
+          document.getElementById("submitButton").style.display =
+            "inline-block";
           document.getElementById("waitButton").style.display = "none";
 
           // Stop polling since we have a response
           clearInterval(restartCheck);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error calling /check_answer:", error);
       });
   }, 10000); // check every 10 seconds
@@ -76,15 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       body: formData.toString(),
     })
-      .then(response => response.text())
-      .then(id => {
+      .then((response) => response.text())
+      .then((id) => {
         console.log("Got ID from /submit_question:", id);
         // Now poll /check_answer
         waitForStatus(id);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error calling /submit_question:", error);
       });
   });
 });
-
