@@ -22,7 +22,6 @@ public/
 built/
 data/
 
-gpt-2/
 getText/PDF/
 getText/TXT/
 getText/merged_*

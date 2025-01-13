@@ -23,7 +23,7 @@ services:
     container_name: artificialeconomist-tensorflow
     build:
       context: ./
-      dockerfile: ./docker/tf/Dockerfile.cpu
+      dockerfile: ./docker/tf/Dockerfile
     restart: unless-stopped
     expose:
       - "8008"
