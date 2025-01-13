@@ -18,7 +18,8 @@ module.exports = function (app, db, tf_domain, tf_port) {
   //var responses = {};
 
   app.post("/check_answer", function (req, res) {
-    var id = Object.keys(req.body)[0];
+    //var id = Object.keys(req.body)[0];
+    var id = req.body.id;
     console.log("ID is " + id);
 
     db.collection("posts").findOne(
@@ -38,7 +39,8 @@ module.exports = function (app, db, tf_domain, tf_port) {
   });
 
   app.post("/submit_question", function (req, res) {
-    var question = Object.keys(req.body)[0];
+    //var question = Object.keys(req.body)[0];
+    var question = req.body.question;
     console.log("Got question: " + question);
     if (typeof question == "undefined") {
       question = "";

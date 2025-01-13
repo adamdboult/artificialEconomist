@@ -5,7 +5,7 @@ function waitForStatus(id) {
 		$.ajax({
 			url: "check_answer",
 			type: "POST",
-			data: id,
+			data: { id: id },
 			success: function(result) {
 				console.log(count);
 				console.log(result);
@@ -29,11 +29,16 @@ $(document).ready(function(){
 		$("#submitButton").hide();
 		$("#waitButton").show();
 		$("#questionResponseHeader").html(question)
-		$.ajax({type: "POST", url: "submit_question", data: question, success: function(result){
-			console.log("Got initial response!");
-			console.log(result);
-			waitForStatus(result);
-		}});
+		$.ajax({
+		    type: "POST",
+		    url: "submit_question",
+		    data: { question: question },
+		    success: function(result){
+			    console.log("Got initial response!");
+			    console.log(result);
+			    waitForStatus(result);
+			}
+		});
 		$("#questionResponse").html("<i>Please wait...</i>");
 	});
 });
