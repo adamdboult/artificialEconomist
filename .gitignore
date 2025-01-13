@@ -21,7 +21,6 @@ built/
 private/
 data/
 
-gpt-2/
 getText/PDF/
 getText/TXT/
 getText/merged_*

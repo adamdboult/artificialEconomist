@@ -26,7 +26,9 @@ from pymongo.errors import ServerSelectionTimeoutError
 # import socketserver
 
 
-import model, sample, encoder
+import model
+import sample
+import encoder
 
 import tensorflow as tf
 
