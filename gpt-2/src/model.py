@@ -1,6 +1,16 @@
 import numpy as np
-import tensorflow as tf
-from tensorflow.contrib.training import HParams
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+#from tensorflow.contrib.training import HParams
+
+class HParams(object):
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+    def override_from_dict(self, values_dict):
+        for k, v in values_dict.items():
+            setattr(self, k, v)
 
 def default_hparams():
     return HParams(

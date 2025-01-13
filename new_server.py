@@ -30,8 +30,9 @@ import model
 import sample
 import encoder
 
-import tensorflow as tf
-
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 def get_final_text_from_response(response):
     """
