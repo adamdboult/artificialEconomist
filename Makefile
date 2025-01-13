@@ -29,7 +29,7 @@ favicon:
 packages:
 	mkdir ./public/packages/
 	cp -R ./node_modules/bootstrap/dist/. ./public/packages/bootstrap
-	cp -R ./node_modules/jquery/dist/. ./public/packages/jquery
+	#cp -R ./node_modules/jquery/dist/. ./public/packages/jquery
 
 scripts:
 	mkdir ./public/js/
