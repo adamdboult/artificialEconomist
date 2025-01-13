@@ -24,18 +24,18 @@ get_text:
 	./getText/merge.sh
 
 favicon:
-	cp ./src/img/compiled/* ./public/
+	cp -R ./src/img/compiled/. ./public
 
 packages:
 	mkdir ./public/packages/
-	cp -R ./node_modules/bootstrap/dist ./public/packages/bootstrap
-	cp -R ./node_modules/jquery/dist ./public/packages/jquery
+	cp -R ./node_modules/bootstrap/dist/. ./public/packages/bootstrap
+	cp -R ./node_modules/jquery/dist/. ./public/packages/jquery
 
 scripts:
-	#mkdir ./public/js/
-	cp -R ./src/js ./public/js
+	mkdir ./public/js/
+	cp -R ./src/js/. ./public/js
       
-styles:
-	mkdir ./public/css/
-	cp -R./src/styles/**/*.css ./public/css/ || true
+#styles:
+#	mkdir ./public/css/
+#	cp -R./src/styles/. ./public/css
 
