@@ -10,9 +10,9 @@ FROM python:3.11
 #  && rm -rf /var/lib/apt/lists/*                                    \
 #  && rm -rf /usr/share/doc/* /usr/share/man/*
 
-RUN apt-get clean                                                   \
-  && rm -rf /var/lib/apt/lists/*                                    \
-  && rm -rf /usr/share/doc/* /usr/share/man/*
+#RUN apt-get clean                                                   \
+#  && rm -rf /var/lib/apt/lists/*                                    \
+#  && rm -rf /usr/share/doc/* /usr/share/man/*
 
 WORKDIR /app
 

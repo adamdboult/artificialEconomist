@@ -1,10 +1,10 @@
 FROM node:22
-RUN apt-get update && apt-get install --no-install-recommends --yes \
-  build-essential                                                   \
-  python3-full                                                      \
-  && apt-get clean                                                  \
-  && rm -rf /var/lib/apt/lists/*                                    \
-  && rm -rf /usr/share/doc/* /usr/share/man/*
+#RUN apt-get update && apt-get install --no-install-recommends --yes \
+#  build-essential                                                   \
+#  && apt-get clean                                                  \
+#  && rm -rf /var/lib/apt/lists/*                                    \
+#  && rm -rf /usr/share/doc/* /usr/share/man/*
+#  python3.11-full                                                   \
 
 # Needed for the empty folder stuff to work
 WORKDIR /app
