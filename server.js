@@ -46,13 +46,25 @@ console.log("Tensorflow port is: " + tf_port);
 //var database_name = "artificialeconomist";
 var database_name = "pymongo_test";
 
-mongoose.connect(
-  "mongodb://" + mongo_domain + ":" + mongo_port + "/" + database_name,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  function (err) {
-    if (err) console.error("ERR" + err);
-  },
-);
+//mongoose.connect(
+//  "mongodb://" + mongo_domain + ":" + mongo_port + "/" + database_name,
+//  { useNewUrlParser: true, useUnifiedTopology: true },
+//  function (err) {
+//    if (err) console.error("ERR" + err);
+//  },
+//);
+
+mongoose
+  .connect(`mongodb://${mongo_domain}:${mongo_port}/${database_name}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB!");
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
+  });
 
 /*
 mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, function(err) {
