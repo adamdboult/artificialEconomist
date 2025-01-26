@@ -2,8 +2,8 @@
 
 import os
 import json
-import regex as re
 from functools import lru_cache
+import regex as re
 
 
 @lru_cache()
@@ -47,7 +47,14 @@ def get_pairs(word):
 
 
 class Encoder:
+    """
+    Documentation
+    """
+
     def __init__(self, encoder, bpe_merges, errors="replace"):
+        """
+        Documentation
+        """
         self.encoder = encoder
         self.decoder = {v: k for k, v in self.encoder.items()}
         self.errors = errors  # how to handle errors in decoding
@@ -62,6 +69,9 @@ class Encoder:
         )
 
     def bpe(self, token):
+        """
+        Documentation
+        """
         if token in self.cache:
             return self.cache[token]
         word = tuple(token)
@@ -96,13 +106,15 @@ class Encoder:
             word = new_word
             if len(word) == 1:
                 break
-            else:
-                pairs = get_pairs(word)
+            pairs = get_pairs(word)
         word = " ".join(word)
         self.cache[token] = word
         return word
 
     def encode(self, text):
+        """
+        Documentation
+        """
         bpe_tokens = []
         for token in re.findall(self.pat, text):
             token = "".join(self.byte_encoder[b] for b in token.encode("utf-8"))
@@ -112,6 +124,9 @@ class Encoder:
         return bpe_tokens
 
     def decode(self, tokens):
+        """
+        Documentation
+        """
         text = "".join([self.decoder[token] for token in tokens])
         text = bytearray([self.byte_decoder[c] for c in text]).decode(
             "utf-8", errors=self.errors
@@ -120,6 +135,9 @@ class Encoder:
 
 
 def get_encoder(model_name, models_dir):
+    """
+    Documentation
+    """
     with open(os.path.join(models_dir, model_name, "encoder.json"), "r") as f:
         encoder = json.load(f)
     with open(

@@ -1,3 +1,7 @@
+"""
+Documentation
+"""
+
 import numpy as np
 
 # import tensorflow as tf
@@ -7,16 +11,29 @@ tf.disable_v2_behavior()
 # from tensorflow.contrib.training import HParams
 
 
-class HParams(object):
+class HParams:
+    """
+    Documentation
+    """
+
     def __init__(self, **kwargs):
+        """
+        Documentation
+        """
         self.__dict__.update(kwargs)
 
     def override_from_dict(self, values_dict):
+        """
+        Documentation
+        """
         for k, v in values_dict.items():
             setattr(self, k, v)
 
 
 def default_hparams():
+    """
+    Documentation
+    """
     return HParams(
         n_vocab=0,
         n_ctx=1024,
@@ -34,12 +51,18 @@ def shape_list(x):
 
 
 def softmax(x, axis=-1):
+    """
+    Documentation
+    """
     x = x - tf.reduce_max(x, axis=axis, keepdims=True)
     ex = tf.exp(x)
     return ex / tf.reduce_sum(ex, axis=axis, keepdims=True)
 
 
 def gelu(x):
+    """
+    Documentation
+    """
     return 0.5 * x * (1 + tf.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * tf.pow(x, 3))))
 
 
@@ -69,6 +92,9 @@ def merge_states(x):
 
 
 def conv1d(x, scope, nf, *, w_init_stdev=0.02):
+    """
+    Documentation
+    """
     with tf.variable_scope(scope):
         *start, nx = shape_list(x)
         w = tf.get_variable(
@@ -96,12 +122,35 @@ def attention_mask(nd, ns, *, dtype):
 
 
 def attn(x, scope, n_state, *, past, hparams):
-    assert x.shape.ndims == 3  # Should be [batch, sequence, features]
-    assert n_state % hparams.n_head == 0
+    """
+    Documentation
+    """
+    # assert x.shape.ndims == 3  # Should be [batch, sequence, features]
+    # assert n_state % hparams.n_head == 0
+    # if past is not None:
+    #    assert (
+    #        past.shape.ndims == 5
+    #    )  # Should be [batch, 2, heads, sequence, features], where 2 is [k, v]
+
+    if x.shape.ndims != 3:
+        raise ValueError(
+            f"Input 'x' must have rank 3 [batch, sequence, features], "
+            f"but got ndims={x.shape.ndims} and shape={x.shape}."
+        )
+
+    if n_state % hparams.n_head != 0:
+        raise ValueError(
+            f"`n_state` must be divisible by `n_head`. "
+            f"Got n_state={n_state}, n_head={hparams.n_head}."
+        )
+
     if past is not None:
-        assert (
-            past.shape.ndims == 5
-        )  # Should be [batch, 2, heads, sequence, features], where 2 is [k, v]
+        if past.shape.ndims != 5:
+            raise ValueError(
+                "If `past` is provided, it must have rank 5 "
+                "[batch, 2, heads, sequence, features], where 2 is [k, v]. "
+                f"Got ndims={past.shape.ndims} and shape={past.shape}."
+            )
 
     def split_heads(x):
         # From [batch, sequence, features] to [batch, heads, sequence, features]
@@ -144,6 +193,9 @@ def attn(x, scope, n_state, *, past, hparams):
 
 
 def mlp(x, scope, n_state, *, hparams):
+    """
+    Documentation
+    """
     with tf.variable_scope(scope):
         nx = x.shape[-1].value
         h = gelu(conv1d(x, "c_fc", n_state))
@@ -152,6 +204,9 @@ def mlp(x, scope, n_state, *, hparams):
 
 
 def block(x, scope, *, past, hparams):
+    """
+    Documentation
+    """
     with tf.variable_scope(scope):
         nx = x.shape[-1].value
         a, present = attn(norm(x, "ln_1"), "attn", nx, past=past, hparams=hparams)
@@ -162,6 +217,9 @@ def block(x, scope, *, past, hparams):
 
 
 def past_shape(*, hparams, batch_size=None, sequence=None):
+    """
+    Documentation
+    """
     return [
         batch_size,
         hparams.n_layer,
@@ -180,12 +238,18 @@ def expand_tile(value, size):
 
 
 def positions_for(tokens, past_length):
+    """
+    Documentation
+    """
     batch_size = tf.shape(tokens)[0]
     nsteps = tf.shape(tokens)[1]
     return expand_tile(past_length + tf.range(nsteps), batch_size)
 
 
 def model(hparams, X, past=None, scope="model", reuse=False):
+    """
+    Documentation
+    """
     with tf.variable_scope(scope, reuse=reuse):
         results = {}
         batch, sequence = shape_list(X)
@@ -208,7 +272,13 @@ def model(hparams, X, past=None, scope="model", reuse=False):
         pasts = (
             tf.unstack(past, axis=1) if past is not None else [None] * hparams.n_layer
         )
-        assert len(pasts) == hparams.n_layer
+        # assert len(pasts) == hparams.n_layer
+
+        if len(pasts) != hparams.n_layer:
+            raise ValueError(
+                f"Expected `pasts` to have length {hparams.n_layer}, but got {len(pasts)}."
+            )
+
         for layer, past in enumerate(pasts):
             h, present = block(h, "h%d" % layer, past=past, hparams=hparams)
             presents.append(present)

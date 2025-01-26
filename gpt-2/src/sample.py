@@ -1,3 +1,7 @@
+"""
+Documentation
+"""
+
 # import tensorflow as tf
 import tensorflow.compat.v1 as tf
 
@@ -7,6 +11,9 @@ import model
 
 
 def top_k_logits(logits, k):
+    """
+    Documentation
+    """
     if k == 0:
         # no truncation
         return logits
@@ -20,11 +27,12 @@ def top_k_logits(logits, k):
             logits,
         )
 
-    return tf.cond(
-        tf.equal(k, 0),
-        lambda: logits,
-        lambda: _top_k(),
-    )
+    #return tf.cond(
+    #    tf.equal(k, 0),
+    #    lambda: logits,
+    #    lambda: _top_k(),
+    #)
+    return _top_k()
 
 
 def top_p_logits(logits, p):
@@ -61,10 +69,20 @@ def sample_sequence(
     top_k=0,
     top_p=1
 ):
+    """
+    Documentation
+    """
+    # if start_token is None:
+    #    assert context is not None, "Specify exactly one of start_token and context!"
+    # else:
+    #    assert context is None, "Specify exactly one of start_token and context!"
+    #    context = tf.fill([batch_size, 1], start_token)
     if start_token is None:
-        assert context is not None, "Specify exactly one of start_token and context!"
-    else:
-        assert context is None, "Specify exactly one of start_token and context!"
+        if context is None:
+            raise ValueError("Specify exactly one of start_token and context!")
+    else:  # start_token is not None
+        if context is not None:
+            raise ValueError("Specify exactly one of start_token and context!")
         context = tf.fill([batch_size, 1], start_token)
 
     def step(hparams, tokens, past=None):
