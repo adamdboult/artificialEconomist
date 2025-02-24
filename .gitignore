@@ -6,6 +6,7 @@
 .venv/
 
 node_modules/
+.ruff_cache/
 
 .vscode/
 .sass-cache/
