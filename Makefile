@@ -4,12 +4,12 @@
 .PHONY: favicon
 .PHONY: packages
 .PHONY: scripts
-.PHONY: styles
+#.PHONY: styles
 .PHONY: clean
 
-all_except_get_text: clean favicon packages scripts styles
+all_except_get_text: clean favicon packages scripts
 
-all: clean get_text favicon packages scripts styles
+all: clean get_text favicon packages scripts
 
 clean:
 	rm -rf ./built/
