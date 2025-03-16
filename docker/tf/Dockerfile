@@ -10,11 +10,13 @@ RUN python -m venv /opt/venv \
 # Ensure the virtual environment is activated for future commands
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY gpt-2/ /app/gpt-2
+# Don't want to copy everything because docker for this project is split between this and the node express web server
+#COPY gpt-2/ /app/gpt-2
+COPY gpt-2/ .
+#COPY new_server.py ./gpt-2/src/
+COPY econstormodel/ ./gpt-2/models/econstormodel/
 WORKDIR /app/gpt-2
 
-COPY new_server.py ./src/
-COPY econstormodel/ ./models/econstormodel/
 
 CMD [ "python", "-u", "./src/new_server.py", "0", "artificialeconomist-mongo", "27017", "artificialeconomist-tensorflow", "8008" ]
 

@@ -43,16 +43,7 @@ console.log("Tensorflow port is: " + tf_port);
 ///////////
 /* Mongo */
 ///////////
-//var database_name = "artificialeconomist";
 var database_name = "pymongo_test";
-
-//mongoose.connect(
-//  "mongodb://" + mongo_domain + ":" + mongo_port + "/" + database_name,
-//  { useNewUrlParser: true, useUnifiedTopology: true },
-//  function (err) {
-//    if (err) console.error("ERR" + err);
-//  },
-//);
 
 mongoose
   .connect(`mongodb://${mongo_domain}:${mongo_port}/${database_name}`, {
@@ -65,24 +56,6 @@ mongoose
   .catch((err) => {
     console.error("Database connection error:", err);
   });
-
-/*
-mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, function(err) {
-    if (err) console.error("ERR" + err);
-});
-*/
-/*
-if (process.argv[2] === "docker") {
-    mongoose.connect('mongodb://artificialeconomist_mongo:27992/' + database_name, { useNewUrlParser: true, useUnifiedTopology: true}, function(err) {
-        if (err) console.error("ERR" + err);
-    });
-}
-else {
-    mongoose.connect('mongodb://127.0.0.1:27017/' + database_name, { useNewUrlParser: true, useUnifiedTopology: true}, function(err) {
-        if (err) console.error("ERR" + err);
-    });
-}
-*/
 
 var db = mongoose.connection;
 
@@ -121,16 +94,7 @@ console.log("finished dump");
 //START EXPRESS
 var app = express();
 
-// Needed to accept posts from client (new question, ask for answer)
-//const bodyParser = require('body-parser');
-//app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(bodyParser.json())
-//app.use(express.json())
-
 app.use(express.urlencoded({ extended: true }));
-//const bodyParser = require('body-parser');
-//app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(bodyParser.json())
 
 //ROUTES
 app.use(express.static(__dirname + "/public")); // set the static files location /public/img will be /img for users
