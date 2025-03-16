@@ -1,13 +1,14 @@
 FROM node:22
 
-# Needed for the empty folder stuff to work
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 
 RUN npm ci
 
+# Don't want to copy everything because docker for this project is split between this and tensorflow
 COPY . .
+#COPY server.js src/ config/ Makefile .
 
 RUN make
 
