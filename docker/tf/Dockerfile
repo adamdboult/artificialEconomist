@@ -12,8 +12,9 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Don't want to copy everything because docker for this project is split between this and the node express web server
 #COPY gpt-2/ /app/gpt-2
-COPY gpt-2/ .
-#COPY new_server.py ./gpt-2/src/
+#COPY gpt-2/ /app/gpt-2
+COPY gpt-2/ ./gpt-2
+
 COPY econstormodel/ ./gpt-2/models/econstormodel/
 WORKDIR /app/gpt-2
 
