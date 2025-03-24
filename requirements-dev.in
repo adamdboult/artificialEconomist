@@ -1,0 +1,30 @@
+-r requirements.in
+
+# Code formatting
+black
+black[jupyter]
+
+# Type checking
+mypy
+
+# Linting and code style
+pylint
+pydocstyle
+
+# Security checks
+bandit
+pip-audit
+
+# Code metrics
+radon
+
+# Notebook conversion
+nbconvert
+
+# Dependency management
+pip-tools
+pip-review
+
+# Static analysis
+semgrep
+

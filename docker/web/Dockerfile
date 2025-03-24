@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json .
 
-RUN npm ci
+RUN npm ci --production
 
 # Don't want to copy everything because docker for this project is split between this and tensorflow
 #COPY . .
