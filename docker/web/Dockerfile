@@ -1,10 +1,13 @@
 FROM node:22
+RUN npm install -g npm@latest
 
 WORKDIR /app
 
 COPY package.json package-lock.json .
 
-RUN npm ci --production
+# Setting NODE_ENV means the development packages get skipped
+ENV NODE_ENV=production
+RUN npm ci
 
 # Don't want to copy everything because docker for this project is split between this and tensorflow
 #COPY . .

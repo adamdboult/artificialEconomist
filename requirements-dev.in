@@ -22,7 +22,7 @@ radon
 nbconvert
 
 # Dependency management
-pip-tools
+#pip-tools	# replaced with uv
 pip-review
 
 # Static analysis
