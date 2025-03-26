@@ -3,7 +3,7 @@ RUN npm install -g npm@latest
 
 WORKDIR /app
 
-COPY package.json package-lock.json .
+COPY package.json package-lock.json ./
 
 # Setting NODE_ENV means the development packages get skipped
 ENV NODE_ENV=production
