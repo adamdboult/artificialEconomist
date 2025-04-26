@@ -132,7 +132,7 @@ app.use(function (req, res) {
 /* HTTP server */
 /////////////////
 var httpServer = http.createServer(app);
-var HTTPport = process.env.PORT || http_port;
+var HTTPport = http_port;
 httpServer.listen(HTTPport);
 
 console.log("App listening on port " + http_port);
