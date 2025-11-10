@@ -21,6 +21,8 @@ node_modules/
 
 *.pdf
 
+.aider*
+
 public/
 built/
 private/
