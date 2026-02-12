@@ -4,6 +4,7 @@ services:
     build:
       context: ./
       dockerfile: ./docker/web/Dockerfile
+      network: host
     restart: unless-stopped
     ports:
       - "8080:80"
@@ -24,6 +25,7 @@ services:
     build:
       context: ./
       dockerfile: ./docker/tf/Dockerfile
+      network: host
     restart: unless-stopped
     expose:
       - "8008"
