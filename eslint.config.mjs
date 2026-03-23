@@ -2,6 +2,7 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 
 import { includeIgnoreFile } from "@eslint/compat";
+import { globalIgnores } from "eslint/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,6 +11,7 @@ const __dirname = path.dirname(__filename);
 const gitignorePath = path.resolve(__dirname, ".gitignore");
 
 export default [
+  globalIgnores(["vendor/"]),
   {languageOptions: { globals: {...globals.browser, ...globals.node} }},
   pluginJs.configs.recommended,
   includeIgnoreFile(gitignorePath),

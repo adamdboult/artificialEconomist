@@ -1,4 +1,3 @@
--r requirements.in
 
 # Code formatting
 black
