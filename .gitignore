@@ -11,6 +11,8 @@ repo_dump_response.txt
 *__pycache__/
 .venv/
 
+vendor/
+
 node_modules/
 .ruff_cache/
 
