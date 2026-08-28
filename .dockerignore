@@ -4,9 +4,6 @@
 *.aux
 *~
 
-repo_dump.txt
-repo_dump_response.txt
-
 
 *.pyc
 *__pycache__/

@@ -2,14 +2,11 @@
 *.aux
 *~
 
-repo_dump.txt
-repo_dump_response.txt
-
 .env
 
 *.pyc
 *__pycache__/
-.venv/
+.venv*/
 
 vendor/
 
