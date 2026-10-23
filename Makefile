@@ -25,8 +25,8 @@ vendor: vendor_nodejs vendor_python
 	
 vendor_python:
 	uv venv --clear --python 3.11 --seed $(VENV_DIR)
-	uv pip compile requirements.in --universal --generate-hashes --output-file requirements.txt
-	uv pip compile requirements.in requirements-dev.in --universal --generate-hashes --output-file requirements-dev.txt
+	uv pip compile --upgrade requirements.in --universal --generate-hashes --output-file requirements.txt
+	uv pip compile --upgrade requirements.in requirements-dev.in --universal --generate-hashes --output-file requirements-dev.txt
 	$(PYTHON) -m pip download -r requirements.txt -d vendor/dist
 	$(PYTHON) -m pip download -d vendor/dist pip setuptools wheel
 	$(PYTHON) -m pip download -r requirements-dev.txt -d vendor/dist_dev
