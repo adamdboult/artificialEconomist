@@ -19,7 +19,8 @@ module.exports = function (app, db, tf_domain, tf_port) {
 
   app.post("/check_answer", function (req, res) {
     //var id = Object.keys(req.body)[0];
-    var id = req.body.id;
+    // Force to a string so a crafted request (e.g. id[$ne]=x) can't become a database query operator
+    var id = String(req.body.id);
     console.log("ID is " + id);
 
     db.collection("posts").findOne(
