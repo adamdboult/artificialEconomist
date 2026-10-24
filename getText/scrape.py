@@ -131,7 +131,6 @@ def download_pdfs(link_list, run_specific_folder):
     }
 
     for index, link in enumerate(link_list):
-
         print(f"Downloading {link}")
 
         # request = urllib.request.Request(url=link, headers=hdr)

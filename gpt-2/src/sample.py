@@ -67,7 +67,7 @@ def sample_sequence(
     context=None,
     temperature=1,
     top_k=0,
-    top_p=1
+    top_p=1,
 ):
     """
     Documentation

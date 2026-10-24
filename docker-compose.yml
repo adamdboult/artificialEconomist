@@ -4,7 +4,6 @@ services:
     build:
       context: ./
       dockerfile: ./docker/web/Dockerfile
-      network: host
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:80"
@@ -17,7 +16,7 @@ services:
     command: mongod --port 27017 --bind_ip 0.0.0.0
     restart: unless-stopped
     volumes:
-      - /data/db/artificialeconomist_mongo:/data/db
+      - mongo_data:/data/db
     expose:
       - "27017"
   artificialeconomist-tensorflow:
@@ -25,9 +24,11 @@ services:
     build:
       context: ./
       dockerfile: ./docker/tf/Dockerfile
-      network: host
     restart: unless-stopped
     expose:
       - "8008"
     depends_on:
       - artificialeconomist-mongo
+volumes:
+  mongo_data:
+    name: artificialeconomist_mongo_data

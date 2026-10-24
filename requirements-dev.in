@@ -1,29 +1,12 @@
 
-# Code formatting
-black
-black[jupyter]
+# Code formatting and linting and more
+ruff
 
-# Type checking
-mypy
-
-# Linting and code style
-pylint
-pydocstyle
-
-# Security checks
-bandit
+# Security checks (known vulnerabilities in Python packages)
 pip-audit
-
-# Code metrics
-radon
 
 # Notebook conversion
 nbconvert
 
-# Dependency management
-#pip-tools	# replaced with uv
-pip-review
-
 # Static analysis
 semgrep
-
